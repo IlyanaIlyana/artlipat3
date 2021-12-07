@@ -126,7 +126,7 @@ if ($res !==TRUE)
 		$lang= 'en';	
 	}
 	StartDB();	
-	SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_data_to_show.php
+	SelectTranslationForRegistration($lang);
 	EndDB();
 	?>
 

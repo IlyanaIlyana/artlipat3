@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
-<?php require_once "art_control/start_mysql.php"?>
+<?php require_once "start_mysql.php"?>
 <html>
 <head>
   <title><?php print $title; ?></title>
