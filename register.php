@@ -1,7 +1,9 @@
 <?php $title = "Registering"; 
 require_once "header.php"; 	
+/* require_once "art_control/functions_register.php";	
+require_once "art_control/functions_selecting_data.php"; */
 require_once "art_control/functions_register.php";	
-require_once "art_control/functions_selecting_data_to_show.php";
+require_once "functions_selecting_data.php";
 
 
 // Если была нажата кнопка "зарегистрироваться")
@@ -126,7 +128,7 @@ if ($res !==TRUE)
 		$lang= 'en';	
 	}
 	StartDB();	
-	SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_data_to_show.php
+	SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_data.php
 	EndDB();
 	?>
 
@@ -153,20 +155,20 @@ if ($res !==TRUE)
 						<span class="input-group-addon"><i class="icon_key_alt"></i></span>
 						<input name="password_again" type="password" class="form-control" placeholder="<?php echo $rowpassword_prompt2['phrase_'.$lang]?>">
 					</div> 
-					<p style="color:#064d89">Подтверждение регистрации будет отправлено на указанный адрес</p>
-					<p>Для разблокировки кнопки регистрации и защиты от спама укажите текущий год вручную</p>
+					<p style="color:#064d89"><?php echo $rowconfirm_text['phrase_'.$lang]?></p>
+					<p><?php echo $rowdeblock_text['phrase_'.$lang]?></p>
 					<div  hidden="true">
 					<div class="input-group">
 						<span class="input-group-addon"></span>
-						<input name="control_data1" autocomplete="off" type="text" class="form-control" placeholder="Текущий год (четыре цифры)" >
+						<input name="control_data1" autocomplete="off" type="text" class="form-control" placeholder="<?php echo $rowyear_text['phrase_'.$lang]?>" >
 					</div> 
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon"></span>
-						<input name="control_data2" id="control_data2" type="text" class="form-control" placeholder="Текущий год (четыре цифры)">
+						<input name="control_data2" id="control_data2" type="text" class="form-control" placeholder="<?php echo $rowyear_text['phrase_'.$lang]?>">
 					</div>
 					<div>
-						<input name="register" type="submit" class="btn btn-primary btn-lg btn-block" id="buttonSubmit" value="Зарегистрироваться"> 					
+						<input name="register" type="submit" class="btn btn-primary btn-lg btn-block" id="buttonSubmit" value="<?php echo $rowregister['phrase_'.$lang]?>"> 					
 					</div>
 				</div>
 			</form>  
@@ -177,7 +179,7 @@ if ($res !==TRUE)
 		<div class="container">
 			<div class="login-form " style="margin-top: 50px">
 				<div class="login-wrap">						
-					<p><a href="index.php">Переход к сервису</a></p>
+					<p><a href="index.php"><?php echo $rowto_login_page['phrase_'.$lang]?></a></p>
 				</div>
 			</div>
 		</div>

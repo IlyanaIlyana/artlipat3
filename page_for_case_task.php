@@ -8,7 +8,7 @@ if(!isset($_SESSION['userid']))
     exit();  
   }
 
-require_once "start_mysql.php"; 	
+require_once "art_control/start_mysql.php"; 	
 require_once "functions_preparing_data_to_show.php"; 
 
 $id_task_case = $_GET['sent_task_case_id']; // id записи задача-дело
