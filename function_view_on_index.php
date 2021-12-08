@@ -23,6 +23,7 @@ function ShowFirstPage()
       <!--logo end-->
       
       <div class="nav search-row" id="top_menu">
+
         <!--  search form start -->
         <!-- <ul class="nav top-menu">
           <li>
@@ -32,6 +33,7 @@ function ShowFirstPage()
           </li>
         </ul> -->
         <!--  search form end -->
+
       </div>
 
       <div class="top-nav notification-row">
@@ -44,13 +46,12 @@ function ShowFirstPage()
           <!-- user login dropdown start-->
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="profile-ava">
-                                <!-- <img alt="" src="img/avatar1_small.jpeg"> -->
-                                <img alt="photo" src="art_admin/<?php echo $_SESSION ['userphotourl'] ?>">
-                            </span>
-                            <span class="username"><?php echo $_SESSION ['username'] ?></span>
-                            <b class="caret"></b>
-                        </a>
+                <span class="profile-ava">                                
+                    <img alt="photo" src="art_admin/<?php echo $_SESSION ['userphotourl'] ?>">
+                </span>
+                <span class="username"><?php echo $_SESSION ['username'] ?></span>
+                <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu extended logout">
               <div class="log-arrow-up"></div>
               <li>
@@ -72,9 +73,9 @@ function ShowFirstPage()
         <ul class="sidebar-menu">
           <li class="">
             <a class="" href="page_for_finding_case.php">
-                          <i class="icon_genius"></i>
-                          <span>Поиск дела</span>
-                      </a>
+                <i class="icon_genius"></i>
+                <span>Поиск дела</span>
+            </a>
           </li>
           <li class="sub-menu">
             <a href="page_for_new_case.php" class="">
@@ -90,9 +91,9 @@ function ShowFirstPage()
           ?>
           <li class="">
             <a class="" href="art_admin/index.php">
-                          <i class="icon_house_alt"></i>
-                          <span>Настройки</span>
-                      </a>
+                <i class="icon_house_alt"></i>
+                <span>Настройки</span>
+            </a>
           </li> 
           <?php        
           }  
@@ -109,7 +110,7 @@ function ShowFirstPage()
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><!-- <i class="fa fa fa-bars"></i> --> Главная</h3>
+            <h3 class="page-header"><!-- <i class="fa fa fa-bars"></i> --> </h3>
             <!-- <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
               <li><i class="fa fa-bars"></i>Pages</li>
@@ -122,18 +123,19 @@ function ShowFirstPage()
           <div class="col-lg-4">
             <section class="panel">
               <header class="panel-heading">
-                Basic Forms
+                <h2><strong>Новая задача</strong></h2> 
               </header>
               <div class="panel-body">
                 <form role="form" action="processing_add_task_to_case.php" method="post">
+                  
                   <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input class="form-control">  
+                    <label for="casenick">Название дела</label>
+                    <input class="form-control" id="casenick">  
                   </div>  
 
                   <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>  
-                  <select id='taskid' class="form-control" name="taskid" required>  
+                  <label for="task">Задача</label>  
+                  <select id='task' class="form-control" name="taskid" required>  
                     <option value="">- Новая задача* -</option> 
                         <?php                                                            
                           /* while($row = mysqli_fetch_assoc($result_tasks))	
@@ -146,8 +148,8 @@ function ShowFirstPage()
                   </div>
 
                   <div class="form-group" id="whats" style="display: none">
-                  <label for="exampleInputEmail1">Email address</label>   
-                  <select class='form-control' name='what_id'>
+                  <label for="what">что</label>   
+                  <select class='form-control' name='what_id' id="what" >
                       <option value="">- выбери что именно -</option>
                         <?php
                           /* StartDB();
@@ -165,12 +167,18 @@ function ShowFirstPage()
                     </select>
                   </div>
 
+                  <?php
+                    // print "SESSION['usersolo']=".$_SESSION['usersolo']."<br>";
+                    if ($_SESSION['usersolo'] != 1)
+                    {
+                    ?>                  
+                  <div class="form-group" id="responsibles">
                   <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label> 
-                  <select class="form-control" name="responsible_id">
+                  <label for="responsible">Кто делает</label> 
+                  <select class="form-control" name="responsible_id" id="responsible">
                               <option value="">- кто делает -</option>  
                               <?php                           
-/*                                 while($row = mysqli_fetch_assoc($result_emplos))	
+                            /*     while($row = mysqli_fetch_assoc($result_emplos))	
                                 {	                              
                                   print "<option value=".$row['id_employee'].">".$row['employee_nickname']."</option>";
                                 }                            
@@ -178,97 +186,137 @@ function ShowFirstPage()
                               ?>	
                               </select>                    
                   </div>
-
-                  <div class="form-group">
-                  <label>начать</label>
-                  <input id= "date1" type="date" class="form-control" name="start_term" value=<?php echo date('Y-m-d')?>>
-                  </div>    
-
-                  <div class="form-group">
-                  <label>закончить</label>
-                  <input type="date" class="form-control" name="end_term" value="<?php echo date('Y-m-d')?>">
-                  </div>
+                  </div>  
+                  
+                  <?php
+                    }
+                   ?> 
 
                   <div class="form-group">
                   <input name="case_id" type="hidden" value="<?php echo $id_case?>">  
-                  </div>
-                
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>                  
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>                
+                                    
+                  <button type="submit" class="btn btn-primary">Записать</button>
                 </form>
-
               </div>
             </section>
           </div>
 
           <div class="col-lg-8">
-          <section class="panel">  
-            <header class="panel-heading tab-bg-primary ">
-              <ul class="nav nav-tabs">
-                <li class="active">
-                  <a data-toggle="tab" href="#total">Все задачи</a>
-                </li>
-                <!--дальше вкладки с отсылками должны выводится согласно списку сотрудников-->
-                <?php ShowTabs() ?>
-                <!--вкладки должны выводится до сюда-->
-                <li class="">
-                  <a  href="art_admin/index.php">новый</a>
-                </li>
-              </ul>
-            </header>
-            <div class="panel-body">
-              <div class="tab-content">
-                <div id="total" class="tab-pane active">                                  
-                  <div class="row">                    
-                    <div class="col-sm-12">
-                      <section class="panel">
-                        <header class="panel-heading">
-                          <h2><strong>Актуальные задачи</strong></h2>                
-                        </header>
-                        <table class="table">                          
-                          <tbody>
-                              <?php ShowAllCasesToWorkOn(1) ?>
-                          </tbody>
-                        </table>
-                        <header class="panel-heading">
-                          <h2><strong>Запланированные задачи</strong></h2>                
-                        </header>
-                        <table class="table">                          
-                          <tbody>
-                              <?php ShowAllCasesToWorkOn(2) ?>
-                          </tbody>
-                        </table>
-                      </section>
-                    </div>
-                  </div> 
-                </div>
-                <!--а здесь должны формироваться id дива и задачи для каждого из сотрудников-->
-                <?php ShowTabsContent()?>                
-                <!--здесь конец формирования задач для каждого из сотрудников-->
+
+            <?php
+            // print "SESSION['usersolo']=".$_SESSION['usersolo']."<br>";
+            if ($_SESSION['usersolo'] == 1)
+            {
+            ?>
+
+            <section class="panel">
+              <header class="panel-heading">
+                Responsive tables
+              </header>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Table heading</th>
+                      <th>Table heading</th> 
+                      <th>Table heading</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <form action="#" method="get" accept-charset="utf-8">
+                          <div class="checkboxes">
+                            <label class="label_check" for="checkbox-01">
+                              <input name="sample-checkbox-01" id="checkbox-01" value="1" type="checkbox" checked />                               
+                            </label>
+                          </div>
+                        </form>
+                      </td>
+                      <td>I agree to the terms &#38; conditions.</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>                      
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
-          </section>
-          </div>
-          <!-- <div class="col-lg-4">
-          <section class="panel">
-            <header class="panel-heading"> Крайние сроки:</header>
-            <div class="panel-body">
-            <?php    
-               //ShowAllTerms(); // находится в functions_preparong_data_to_show.php
-            ?>  
-            </div>
-          </section>
-          </div> -->
+            </section> 
+            <?php            
+            }
+
+            else{
+            ?>
+            <section class="panel">  
+              <header class="panel-heading tab-bg-primary ">
+                <ul class="nav nav-tabs">
+                  <li class="active">
+                    <a data-toggle="tab" href="#total">Все задачи</a>
+                  </li>
+                  <!--дальше вкладки с отсылками должны выводится согласно списку сотрудников-->
+                  <?php ShowTabs() ?>
+                  <!--вкладки должны выводится до сюда-->
+                  <li class="">
+                    <a  href="art_admin/index.php">новый</a>
+                  </li>
+                </ul>
+              </header>
+              <div class="panel-body">
+                <div class="tab-content">
+                  <div id="total" class="tab-pane active">                                
+                    <div class="row">                    
+                      <div class="col-sm-12">
+                        <section class="panel">
+                          <header class="panel-heading">
+                            <h2><strong>Актуальные задачи</strong></h2>                
+                          </header>                          
+                          <div class="table-responsive">
+                            <table class="table">                          
+                              <tbody>
+                                  <?php ShowAllCasesToWorkOn(1) ?>
+                              </tbody>
+                            </table>
+                          </div>
+                          <header class="panel-heading">
+                            <h2><strong>Запланированные задачи</strong></h2>                
+                          </header>
+                          <div class="table-responsive">
+                            <table class="table">                          
+                              <tbody>
+                                  <?php ShowAllCasesToWorkOn(2) ?>
+                              </tbody>
+                            </table>
+                          </div>
+                        </section>
+                      </div>
+                    </div> 
+                  </div>
+                  <!--а здесь должны формироваться id дива и задачи для каждого из сотрудников-->
+                  <?php ShowTabsContent()?>                
+                  <!--здесь конец формирования задач для каждого из сотрудников-->
+                </div>
+              </div>
+            </section>
+            <?php            
+            }?>
+          </div>          
         </div>
 	      <!-- page end-->
       </section>
+
     </section>
     <!--main content end-->
     <div class="text-right">
