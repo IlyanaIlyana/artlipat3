@@ -7,10 +7,11 @@ function SelectTranslationForRegistration($lang)
     global $rowemail_prompt;
     global $rowpassword_prompt1;
     global $rowpassword_prompt2;
-    /* global $rowartlipat;
-    global $rowartlipat;
-    global $rowartlipat;
-    global $rowartlipat; */
+    global $rowconfirm_text;
+    global $rowdeblock_text;
+    global $rowyear_text;
+    global $rowregister;
+    global $rowto_login_page;
 
 
     $SQLartlipat = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'artlipat'";
@@ -34,8 +35,61 @@ function SelectTranslationForRegistration($lang)
 
 	$SQLpassword_prompt2 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'password_prompt2'";
 	$rowpassword_prompt2 = mysqli_fetch_assoc(mysqli_query($db, $SQLpassword_prompt2));
+    
+    $SQLconfirm_text = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'confirm_text'";
+	$rowconfirm_text = mysqli_fetch_assoc(mysqli_query($db, $SQLconfirm_text));
+    
+    $SQLdeblock_text = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'deblock_text'";
+	$rowdeblock_text = mysqli_fetch_assoc(mysqli_query($db, $SQLdeblock_text));
+
+    $SQLyear_text = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'year_text'";
+	$rowyear_text = mysqli_fetch_assoc(mysqli_query($db, $SQLyear_text));
+
+    $SQLregister = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'register'";
+	$rowregister = mysqli_fetch_assoc(mysqli_query($db, $SQLregister));
+
+    $SQLto_login_page = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'to_login_page'";
+	$rowto_login_page = mysqli_fetch_assoc(mysqli_query($db, $SQLto_login_page));
 }
 
+function SelectTranslationForLogin($lang)
+{
+    global $db;
+    global $rowartlipat;
+    global $rowlogin;
+    global $rowpassword;
+    global $rowenter;
+    global $rowto_new_registration;
+
+    $SQLartlipat = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'artlipat'";
+	
+	if (!$resultartlipat = mysqli_query($db, $SQLartlipat)) 
+	{
+		printf("Ошибка запроса к базе: %s\n", mysqli_error($db));
+	} 
+
+	if(mysqli_num_rows($resultartlipat) == 0) 
+	{
+		print "<br><p>Не получаю перевод</p>";		
+	}
+	$rowartlipat = mysqli_fetch_assoc($resultartlipat);
+
+	$SQLlogin = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'login'";
+	$rowlogin = mysqli_fetch_assoc(mysqli_query($db, $SQLlogin));
+
+	$SQLpassword = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'password'";
+	$rowpassword = mysqli_fetch_assoc(mysqli_query($db, $SQLpassword));
+
+	$SQLenter = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'enter'";
+	$rowenter = mysqli_fetch_assoc(mysqli_query($db, $SQLenter));
+    
+    $SQLto_new_registration = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'to_new_registration'";
+	$rowto_new_registration = mysqli_fetch_assoc(mysqli_query($db, $SQLto_new_registration));
+ 
+}
+
+
+$result_cases_to_work;
 function SelectAllCasesToWorkOn($x) //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
 {
 	global $db;
@@ -245,10 +299,11 @@ function SelectCasenicksOnAccountId() // вызывается в файле page
     }
 }
 
+$result_emplos; 
 function SelectEmployeesOnAccountId() // вызывается в файле page_for_case_card
 {
     global $db;   
-    global $result_emplos; 
+    global $result_emplos;     
 
     // получаем список сотрудников в данном аккаунте
     $account_id = $_SESSION['useraccountid'];
@@ -258,7 +313,7 @@ function SelectEmployeesOnAccountId() // вызывается в файле page
     if (!$result_emplos = mysqli_query($db, $SQL)) 
     {
         printf("Ошибка в запросе на сотрудников: %s\n", mysqli_error($db));
-    }
+    }    
 }
 
 
