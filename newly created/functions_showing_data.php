@@ -1,8 +1,10 @@
 <?php
 
-function ShowAllCasesToWorkOn($result_cases_to_work) //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
+function ShowAllCasesToWorkOn($x) //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
 {
-	while($row = mysqli_fetch_assoc($result_cases_to_work))
+	global $result_cases_to_work;
+    SelectAllCasesToWorkOn($x);
+    while($row = mysqli_fetch_assoc($result_cases_to_work))
     { 
         ?>
             <tr>             
@@ -17,9 +19,11 @@ function ShowAllCasesToWorkOn($result_cases_to_work) //вызывается из
 	mysqli_free_result($result_cases_to_work);
 }	
 
-function ShowCasesToWorkOnForPerson($result_cases_to_work_person) //вызывается из function ShowTabsContent(), расположенной здесь же
+function ShowCasesToWorkOnForPerson($person_id,$x) //вызывается из function ShowTabsContent(), расположенной здесь же
 {
-	while($row2 = mysqli_fetch_assoc($result_cases_to_work_person))
+	SelectCasesToWorkOnForPerson($person_id, $x);
+    global $result_cases_to_work_person;
+    while($row2 = mysqli_fetch_assoc($result_cases_to_work_person))
     { 
         print "<tr>"; 
         printf("<td>%s</td><td>%s</td><td>%s</td>", 
@@ -32,8 +36,10 @@ function ShowCasesToWorkOnForPerson($result_cases_to_work_person) //вызыва
 	mysqli_free_result($result_cases_to_work_person);
 }	
 
-function ShowAllCompanyCases($result_cases)
+function ShowAllCompanyCases()
 {    
+    global $result_cases;
+    SelectAllCompanyCases();
     while( $row = mysqli_fetch_assoc($result_cases))
     { 
         if ($row['not_closed_case']==1){
@@ -59,9 +65,11 @@ function ShowAllCompanyCases($result_cases)
 	mysqli_free_result($result_cases);	
 }
 
-function ShowTabs($result_emplos) //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
+function ShowTabs() //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
 {
-    while( $row = mysqli_fetch_assoc($$result_emplos))
+    global $result_emplos;
+    SelectEmployeesOnAccountId();
+    while( $row = mysqli_fetch_assoc($result_emplos))
     { 
         ?>            
         <li class=""><a data-toggle="tab" 
@@ -72,34 +80,22 @@ function ShowTabs($result_emplos) //вызывается из function ShowFirst
     mysqli_free_result($result_emplos);    
 }
 
-function ShowTabsContent($result_emplos) //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
+function ShowTabsContent() //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
 {    
+    global $result_emplos;
+    SelectEmployeesOnAccountId();
     while($row = mysqli_fetch_assoc($result_emplos))
     { 
         ?>            
         <div id="<?php echo $row['id_employee']?>" class="tab-pane">
         <h3>Актуальные задачи</h3>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Задача</th>
-                    <th>Дело</th>
-                    <th>Срок</th>                              
-                </tr>
-                </thead>
+            <table class="table">                
                 <tbody>
                 <?php ShowCasesToWorkOnForPerson($row['id_employee'], 1)?> 
                 </tbody>
             </table> 
             <h3>Запланированные задачи</h3> 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Задача</th>
-                    <th>Дело</th>
-                    <th>Срок</th>                              
-                </tr>
-                </thead>
+            <table class="table">                
                 <tbody>
                 <?php ShowCasesToWorkOnForPerson($row['id_employee'], 2)?>
                 </tbody>
