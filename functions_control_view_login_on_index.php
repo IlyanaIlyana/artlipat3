@@ -84,6 +84,11 @@ function CheckPassword() // это конечная функция, вызыва
 				printf("Ошибка: %s\n", mysqli_error($db));
 			}
 			//print_r($_SESSION);	
+
+			global $result_emplos;  
+			SelectEmployeesOnAccountId();   
+			$_SESSION['usersolo'] = mysqli_num_rows($result_emplos); // теперь в сессии знаем, сольный ли аккаунт
+			
 			return TRUE;
 		}
 	}
@@ -103,25 +108,51 @@ function CheckPassword() // это конечная функция, вызыва
 
 function ShowLogin() //вызывается здесь из CheckLogin
 {
+	// превращаем статический контент в динамический	
+	global $db;
+	global $rowartlipat;
+	global $rowlogin;
+	global $rowpassword;
+	global $rowenter;
+	global $rowto_new_registration;
+	
+	$lang = $_GET['lang'];
+	if (!$lang)
+	{
+		$lang= 'en';	
+	}
+	//StartDB();	
+	SelectTranslationForLogin($lang); //kept in art_control/functions_selecting_data.php
+	//EndDB();
 	?>	
 	<div class="login-img3-body">
 		<div class="container">
-			<form class="login-form" action="index.php" method="post">
+			<form class="login-form" action="index.php" method="post" style="margin-top: 50px">
 				<div class="login-wrap">
-					<p class="login-img"><i class="icon_lock_alt"></i>Артлипат</p>
+					<div class="btn-group" data-toggle="buttons" style="left:200px">
+                        <label class="btn btn-info"> <input type="radio" name="lang_registration" value="en" id="en" lang="en"> EN </label>
+                        <label class="btn btn-info active"><input type="radio" name="lang_registration" value="ru" id="ru" lang="ru"> RU </label>                      
+                    </div>	
+					<p class="login-img"><i class="icon_lock_alt"></i><?php echo $rowartlipat['phrase_'.$lang]?></p>
 					<div class="input-group">
 						<span class="input-group-addon"><i class="icon_profile"></i></span>
-						<input name="enteredlogin" type="text" class="form-control" placeholder="Логин" autofocus>
+						<input name="enteredlogin" type="text" class="form-control" placeholder="<?php echo $rowlogin['phrase_'.$lang]?>" autofocus>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon"><i class="icon_key_alt"></i></span>
-						<input name="enteredpassword" type="password" class="form-control" placeholder="Пароль">
+						<input name="enteredpassword" type="password" class="form-control" placeholder="<?php echo $rowpassword['phrase_'.$lang]?>">
 					</div>        
-					<button class="btn btn-primary btn-lg btn-block" type="submit">Войти</button>
+					<button class="btn btn-primary btn-lg btn-block" type="submit"><?php echo $rowenter['phrase_'.$lang]?></button>
 				</div>
-			</form>  
-			<div class="page-404">
-			<a href="register.php">Переход к регистрации новой компании</a>
+			</form>  			
+		</div>
+	</div>
+	<div class="login-img3-body">
+		<div class="container">
+			<div class="login-form " style="margin-top: 50px">
+				<div class="login-wrap">						
+					<p><a href="register.php"><?php echo $rowto_new_registration['phrase_'.$lang]?></a></p>
+				</div>
 			</div>
 		</div>
 	</div>
