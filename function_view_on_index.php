@@ -212,45 +212,28 @@ function ShowFirstPage()
 
             <section class="panel">
               <header class="panel-heading">
-                Responsive tables
+                Мои задачи
               </header>
               <div class="table-responsive">
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>Table heading</th>
-                      <th>Table heading</th> 
-                      <th>Table heading</th>
+                      <th colspan="3">Актуальные задачи</th>                      
                     </tr>
                   </thead>
                   <tbody>
+                    <?php 
+                    ShowCasesToWorkOnForPerson($_SESSION['userid'], 1)?>                     
+                  </tbody>
+                
+                  <thead>
                     <tr>
-                      <td>
-                        <form action="#" method="get" accept-charset="utf-8">
-                          <div class="checkboxes">
-                            <label class="label_check" for="checkbox-01">
-                              <input name="sample-checkbox-01" id="checkbox-01" value="1" type="checkbox" checked />                               
-                            </label>
-                          </div>
-                        </form>
-                      </td>
-                      <td>I agree to the terms &#38; conditions.</td>
-                      <td>Table cell</td>
-                      <td>Table cell</td>                      
+                      <th colspan="3">Запланированные задачи</th>                      
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Table cell</td>
-                      <td>Table cell</td>
-                      <td>Table cell</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Table cell</td>
-                      <td>Table cell</td>
-                      <td>Table cell</td>
-                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php 
+                    ShowCasesToWorkOnForPerson($_SESSION['userid'], 2)?>                     
                   </tbody>
                 </table>
               </div>

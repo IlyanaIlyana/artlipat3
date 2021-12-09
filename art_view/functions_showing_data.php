@@ -34,7 +34,18 @@ function ShowCasesToWorkOnForPerson($person_id,$x) //вызывается из f
     global $result_cases_to_work_person;
     while($row2 = mysqli_fetch_assoc($result_cases_to_work_person))
     { 
-        print "<tr>"; 
+        print "<tr>";
+        ?>
+        <td>
+            <form action="#" method="get" accept-charset="utf-8">
+                <div class="checkboxes">
+                <label class="label_check" for="checkbox-01">
+                    <input name="sample-checkbox-01" id="checkbox-01" value="1" type="checkbox" checked />                               
+                </label>
+                </div>
+            </form>
+        </td>
+        <?php
         printf("<td>%s</td><td>%s</td><td>%s</td>", 
         $row2['task_name']." ".$row2['what']." ".$row2['where'], 
         "<a href='page_for_case_card.php?sent_case_id=".$row2['id_case']."'>".
