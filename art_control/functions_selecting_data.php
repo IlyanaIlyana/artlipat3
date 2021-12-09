@@ -181,7 +181,12 @@ function SelectAllCompanyCases()
 
 }
 
-    function PrepareIndependentListsForChoice() // вызывается в файле page_for_new_case.php  и page_for_case_card и page_for_case_task
+
+$result_ipsubjects; 
+$result_jurisdictions; 
+$result_tasks;
+$result_whats;  
+function PrepareIndependentListsForChoice() // вызывается в файле page_for_new_case.php  и page_for_case_card и page_for_case_task
 {
     global $db;
     global $result_ipsubjects; 
@@ -277,6 +282,7 @@ function SelectDataOnAccountId() // вызывается в файле page_for_
     }
 }
 
+$result_nicks;
 function SelectCasenicksOnAccountId() // вызывается в файле page_for_case_card
 {
     global $db;    
@@ -284,7 +290,7 @@ function SelectCasenicksOnAccountId() // вызывается в файле page
 
     // получаем список ников в данном аккаунте в $result_nicks 
     $account_id = $_SESSION['useraccountid'];
-    $SQL = "SELECT our_case_ref
+    $SQL = "SELECT id_case, our_case_ref
             FROM cases ca 
             LEFT JOIN employees em 
             ON ca.registrant_id = em.id_employee 
