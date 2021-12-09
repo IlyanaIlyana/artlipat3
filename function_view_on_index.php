@@ -126,23 +126,37 @@ function ShowFirstPage()
                 <h2><strong>Новая задача</strong></h2> 
               </header>
               <div class="panel-body">
-                <form role="form" action="processing_add_task_to_case.php" method="post">
+                <form role="form" action="art_control/processing_add_task_to_case.php" method="post">
                   
                   <div class="form-group">
-                    <label for="casenick">Название дела</label>
-                    <input class="form-control" id="casenick">  
+                    <label for="casenick">Название дела*</label>                   
+                    <select id='casenick' class="form-control" name="caseid" required>  
+                    <option value=""></option> 
+                        <?php 
+                          SelectCasenicksOnAccountId();  
+                            global $result_nicks;                                                         
+                          while($row = mysqli_fetch_assoc($result_nicks))	
+                          {	                              
+                            print "<option  value=".$row['id_case'].">".$row['our_case_ref']."</option>";
+                          }                            
+                          mysqli_free_result($result_nicks);
+                        ?>	
+                    </select>   
                   </div>  
 
                   <div class="form-group">
-                  <label for="task">Задача</label>  
-                  <select id='task' class="form-control" name="taskid" required>  
-                    <option value="">- Новая задача* -</option> 
-                        <?php                                                            
-                          /* while($row = mysqli_fetch_assoc($result_tasks))	
+                  <label for="taskid">Задача*</label>  
+                  <select id='taskid' class="form-control" name="taskid" required>  
+                    <option value=""></option> 
+                        <?php 
+                          PrepareIndependentListsForChoice();  
+                            global $result_tasks;
+                            global $result_whats;                                                           
+                          while($row = mysqli_fetch_assoc($result_tasks))	
                           {	                              
                             print "<option  value=".$row['id_task'].">".$row['task_name']."</option>";
                           }                            
-                          mysqli_free_result($result_tasks); */
+                          mysqli_free_result($result_tasks);
                         ?>	
                     </select> 
                   </div>
@@ -152,17 +166,13 @@ function ShowFirstPage()
                   <select class='form-control' name='what_id' id="what" >
                       <option value="">- выбери что именно -</option>
                         <?php
-                          /* StartDB();
-                          PrepareIndependentListsForChoice(); // находится в functions_preparing_data_to_show.php
-                                                    // получим выборку $result_whats ;                         
-                          EndDB();
                             while($row = mysqli_fetch_assoc($result_whats))	
                             {	  
                             //print_r($row);                            
                             if ($row['id_what']==$row_casetask['what_id']){print "<option selected value=".$row['id_what'].">".$row['what']."</option>";}
                             else {print "<option value=".$row['id_what'].">".$row['what']."</option>";}
                             } 
-                            mysqli_free_result($result_whats); */
+                            mysqli_free_result($result_whats);
                         ?>
                     </select>
                   </div>
@@ -190,11 +200,7 @@ function ShowFirstPage()
                   
                   <?php
                     }
-                   ?> 
-
-                  <div class="form-group">
-                  <input name="case_id" type="hidden" value="<?php echo $id_case?>">  
-                  </div>                
+                  ?>                
                                     
                   <button type="submit" class="btn btn-primary">Записать</button>
                 </form>
