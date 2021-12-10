@@ -128,20 +128,13 @@ function ShowFirstPage()
               <div class="panel-body">
                 <form role="form" action="art_control/processing_add_task_to_case.php" method="post">
                   
-                  <div class="form-group">
-                    <label for="casenick">Название дела*</label>                   
-                    <select id='casenick' class="form-control" name="caseid" required>  
-                    <option value=""></option> 
-                        <?php 
-                          SelectCasenicksOnAccountId();  
-                            global $result_nicks;                                                         
-                          while($row = mysqli_fetch_assoc($result_nicks))	
-                          {	                              
-                            print "<option  value=".$row['id_case'].">".$row['our_case_ref']."</option>";
-                          }                            
-                          mysqli_free_result($result_nicks);
-                        ?>	
-                    </select>   
+                  <div class="form-group">                  
+                    <div class="ui-widget">
+                    <div  >
+                      <label for="casenickforauto">Название дела*</label>  
+                      <input id="casenickforauto" class="form-control"> 
+                    </div> 
+                    </div>                   
                   </div>  
 
                   <div class="form-group">
