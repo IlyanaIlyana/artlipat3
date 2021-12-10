@@ -45,6 +45,10 @@
   <link href="css/xcharts.min.css" rel=" stylesheet">
   <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
 
+  <!-- Artlipat -->
+  <link rel="stylesheet" href="chosen_v187/chosen.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">  
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>

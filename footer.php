@@ -25,7 +25,10 @@
     <script src="assets/chart-master/Chart.js"></script>
 
     <!-- artlipat -->    
-    <script type="module" src="js/artlip_main.js"></script> 
+    <script type="module" src="js/artlip_main.js"></script>
+    <script src="chosen_v187/chosen.jquery.min.js"></script> 
+<!--     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>-->
+<!--   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>  -->
 
     <!--custome script for all page-->
     <script src="js/scripts.js"></script>
