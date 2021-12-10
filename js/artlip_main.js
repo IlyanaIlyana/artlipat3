@@ -13,4 +13,6 @@ $(document).ready(function()
 	lib.TheSameDate();
 	lib.DateCalculation();
 	lib.ChangeRegistrationLanguage();
+	lib.SelectTaskChosen();
+	/* lib.SelectCaseAuto(); */
 });

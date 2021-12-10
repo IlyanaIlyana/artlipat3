@@ -274,6 +274,28 @@ export function DateCalculation()
 	});	
 }
 
+export function SelectTaskChosen()
+{
+$("#taskid").chosen({
+	width: '100%',	
+	no_results_text: 'Совпадений не найдено:',
+	placeholder_text_single: 'Выберите задачу'
+});	
+}
 
+export function SelectCaseAuto()
+{
+	/* var flowers = [{label: "Астры (бордовые)", value: "Астры"}, 
+			       {label: "Нарциссы(белые)", value: "Нарциссы"}, 
+			       {label: "Розы (розовые)", value: "Розы"}, 
+			       {label: "Пионы (розовые)", value: "Пионы"}] */
+	
+/* 	console.log("добрались до SelectCaseAuto"); 
+	$('#casenickforauto').autocomplete({		 
+		source: '../art_control/search_case_name_get.php', */
+		/* source: flowers */
+		/* minLength: 2, */
+/* }) */
+}
 
 	
