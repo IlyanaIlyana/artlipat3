@@ -15,4 +15,5 @@ $(document).ready(function()
 	lib.ChangeRegistrationLanguage();
 	lib.SelectTaskChosen();
 	lib.SelectCaseAuto();
+	lib.CheckBoxAjax();
 });

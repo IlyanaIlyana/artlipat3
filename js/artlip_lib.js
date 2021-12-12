@@ -292,4 +292,45 @@ $("#autocomplete").autocomplete({
 	});
 }
 
+export function CheckBoxAjax()
+{
+	/* $("input:checkbox").change(function() {
+		if($(this).is(":checked")) {
+			$.ajax({
+				url: 'check_box_on.php',
+				type: 'POST',
+				data:{action:'call_this'},
+			});
+		} else {
+			$.ajax({
+				url: 'check_box_on.php',
+				type: 'POST',
+				data:{action:'call_this2'},
+			});
+		}
+	});	 */
+
+	$("input.active").click(function() {
+		// store the values from the checkbox box, then send via ajax below
+		var check_active = $(this).is(':checked') ? 1 : 0;
+		var check_id = $(this).attr('value');
+		
+		console.log("check_active=", check_active);
+		console.log("check_id=", check_id);
+		
+			$.ajax({
+				type: "POST",
+				url: "http://artlipat3/art_ajax/check_box_on.php",
+				data: {id: check_id, active: check_active},
+				/* success: function(){
+					$('form#submit').hide(function(){$('div.success').fadeIn();});
+		
+				} */
+				success: function(){
+					console.log("дошли до конца");
+				}
+			});
+		return true;
+	});
+}
 	
