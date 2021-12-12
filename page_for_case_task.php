@@ -80,7 +80,7 @@ EndDB();
               <div class="panel-body"> 
                 <div class="form quick-post">
                   <!-- Case data entering by selection-->
-                  <form class="form-horizontal" action="processing_update_task.php" method="post">                  
+                  <form class="form-horizontal" action="art_control/processing_update_task.php" method="post">                  
                     <div class="form-group">  
                       <?php 
                       StartDB(); 
