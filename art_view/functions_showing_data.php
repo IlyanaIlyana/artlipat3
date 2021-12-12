@@ -9,13 +9,13 @@ function ShowAllCasesToWorkOn($x) //вызывается из function ShowFirst
         ?>
             <tr> 
                 <td>
-                    <form action="#" method="get" accept-charset="utf-8">
+                    <!-- <form action="#" method="get" accept-charset="utf-8"> -->
                         <div class="checkboxes">
                         <label class="label_check" for="checkbox-01">
                             <input name="sample-checkbox-01" id="checkbox-01" value="1" type="checkbox" checked />                               
                         </label>
                         </div>
-                    </form>
+                    <!-- </form> -->
                 </td>            
                 <td> <?php echo $row['task_name']." ".$row['what']." ".$row['where']?></td>
                 <td><a href='page_for_case_card.php?sent_case_id=<?php echo$row['id_case']?>'>
@@ -37,13 +37,13 @@ function ShowCasesToWorkOnForPerson($person_id,$x) //вызывается из f
         print "<tr>";
         ?>
         <td>
-            <form action="#" method="get" accept-charset="utf-8">
+            <!-- <form action="#" method="get" accept-charset="utf-8"> -->
                 <div class="checkboxes">
-                <label class="label_check" for="checkbox-01">
-                    <input name="sample-checkbox-01" id="checkbox-01" value="1" type="checkbox" checked />                               
+                <label class="label_check" for="checkbox-<?php echo $row2['id_task_case']?>">
+                    <input class="active" <?php if ($row2['task_status'] == 0): ?>checked="checked"<?php endif; ?> name="sample-checkbox-01" id="checkbox-<?php echo $row2['id_task_case']?>" value="<?php echo $row2['id_task_case']?>" type="checkbox"  />                               
                 </label>
                 </div>
-            </form>
+            <!-- </form> -->
         </td>
         <?php
         printf("<td>%s</td><td>%s</td><td>%s</td>", 
