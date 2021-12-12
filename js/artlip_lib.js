@@ -278,8 +278,8 @@ export function SelectTaskChosen()
 {
 $("#taskid").chosen({
 	width: '100%',	
-	no_results_text: 'Совпадений не найдено:',
-	placeholder_text_single: 'Выберите задачу'
+	/* no_results_text: 'Совпадений не найдено:',
+	placeholder_text_single: 'Выберите задачу' */
 });	
 }
 
