@@ -14,5 +14,5 @@ $(document).ready(function()
 	lib.DateCalculation();
 	lib.ChangeRegistrationLanguage();
 	lib.SelectTaskChosen();
-	/* lib.SelectCaseAuto(); */
+	lib.SelectCaseAuto();
 });

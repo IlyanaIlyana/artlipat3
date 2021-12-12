@@ -285,17 +285,11 @@ $("#taskid").chosen({
 
 export function SelectCaseAuto()
 {
-	/* var flowers = [{label: "Астры (бордовые)", value: "Астры"}, 
-			       {label: "Нарциссы(белые)", value: "Нарциссы"}, 
-			       {label: "Розы (розовые)", value: "Розы"}, 
-			       {label: "Пионы (розовые)", value: "Пионы"}] */
-	
-/* 	console.log("добрались до SelectCaseAuto"); 
-	$('#casenickforauto').autocomplete({		 
-		source: '../art_control/search_case_name_get.php', */
-		/* source: flowers */
-		/* minLength: 2, */
-/* }) */
+$("#autocomplete").autocomplete({
+	/* source: "http://artlipat3/search.php", */	
+	/* source: "http://artlipat3/art_control/search_case_name_get.php", */	
+	source: "../art_control/search_case_name_get.php",
+	});
 }
 
 	

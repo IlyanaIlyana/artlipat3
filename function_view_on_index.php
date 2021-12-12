@@ -131,8 +131,8 @@ function ShowFirstPage()
                   <div class="form-group">                  
                     <div class="ui-widget">
                     <div  >
-                      <label for="casenickforauto">Название дела*</label>  
-                      <input id="casenickforauto" class="form-control"> 
+                      <label for="autocomplete">Название дела*</label>  
+                      <input id="autocomplete" class="form-control"> 
                     </div> 
                     </div>                   
                   </div>  
