@@ -136,7 +136,7 @@ function SelectCasesToWorkOnForPerson($person_id, $x) //вызывается и�
             JOIN employees e2 ON e2.id_employee = tc.task_responsible_id 
             JOIN tasks t2 ON t2.id_task = tc.task_id 
             LEFT JOIN whats w2 ON w2.id_what = tc.what_id 
-            WHERE tc.task_status = 1 AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 AND e2.account_id = ".$account_id." AND 
+            WHERE tc.still_show_on_index = 1 AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 AND e2.account_id = ".$account_id." AND 
                 e2.id_employee =".$person_id." AND 
                 tc.task_start_term <= CURRENT_DATE()
             ORDER BY tc.task_end_term";
