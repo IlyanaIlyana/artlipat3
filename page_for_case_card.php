@@ -163,43 +163,21 @@ EndDB();
                       StartDB(); 
                       SelectAllTaskOnCaseId($id_case); // находится в functions_preparong_data_to_show.php
                       EndDB();                                                          
-                            while($row = mysqli_fetch_assoc($result_casetask))	
-                            {	
-                              if ($row['task_status']==1){
-                              ?>
-                              <form class="form-horizontal" action="processing_task_done.php" method="post">
-                              <button type="submit" class="btn "><i class="fa fa-square-o"></i></button>                                  
-                              <a href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
-                                  &sent_task_id=<?php echo $row['task_id']?>
-                                  &sent_taskstatus=1
-                                  &sent_task_case_id=<?php echo $row['id_task_case']?>
-                                  &sent_our_case_ref=<?php echo $row_casedata['our_case_ref']?>'>
-                                <label class='control-label'>--- 
-                                <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>--- 
-                                <?php echo $row['employee_nickname']?>---
-                                <?php echo $row['task_start_term_formatted']?>
-                                </label>
-                              </a>
-                              <input type='hidden' name='task_case_id' value=<?php echo $row['id_task_case']?>>
-                              <input type='hidden' name='case_id' value=<?php echo $row['case_id']?>>
-                              </form> 
-                              <?php
-                              }
-                              else{
-                                ?>
-                                <button type="submit" class="btn "><i class="fa fa-check-square"></i></button> 
-                                <a href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
+                        while($row = mysqli_fetch_assoc($result_casetask))	
+                        {	                             
+                          ?>    
+                            <a <?php if ($row['task_status'] == 0): ?>
+                              style='text-decoration:line-through'<?php endif; ?>
+                              href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
                                     &sent_task_id=<?php echo $row['task_id']?>
                                     &sent_taskstatus=0
                                     &sent_task_case_id=<?php echo $row['id_task_case']?>
                                     &sent_our_case_ref=<?php echo $row_casedata['our_case_ref']?>'> 
-                                <label class='control-label' style='text-decoration:line-through'>--- 
-                                <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>--- 
-                                <?php echo $row['employee_nickname']?>---
-                                <?php echo $row['task_start_term_formatted']?></label><br>
-                                </a>
-                                <?php
-                                }
+                             
+                                <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>
+                              <br>        
+                            </a>
+                          <?php
                             }                            
                             mysqli_free_result($result_casetask);
                           ?>	      
@@ -208,7 +186,12 @@ EndDB();
           </div> <!-- line 6: portlet -->   
         </div> <!-- line 5: row-->
 
-        <div class="row">  
+        <div class="row"> 
+          
+        
+
+
+        
           <div class="col-lg-4">
             <section class="panel">
               <header class="panel-heading">
