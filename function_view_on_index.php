@@ -224,7 +224,7 @@ function ShowFirstPage()
                         <input type="submit" value="скрыть сделанные" class="btn-primary" 
                         <?php if (NoTasksDoneNotHidden()): ?>
                           hidden="true"<?php endif; ?> 
-                        />  
+                        id="hidden_button"/>  
                         </th>                      
                       </tr>
                     </thead>

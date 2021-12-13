@@ -335,6 +335,11 @@ export function CheckBoxAjax()
 					console.log("дошли до конца");
 				}
 			});
+
+			if (this.checked){
+				$("#hidden_button").removeAttr('hidden');
+			}
+
 		return true;
 	});
 }
