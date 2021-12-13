@@ -314,7 +314,12 @@ export function CheckBoxAjax()
 		// store the values from the checkbox box, then send via ajax below
 		var check_active = $(this).is(':checked') ? 0 : 1;
 		var check_id = $(this).attr('value');
-				
+		
+		$(this).closest('td').next('td').css(
+			'text-decoration',
+			this.checked ? 'line-through' : 'none'
+		);
+
 		console.log("check_active=", check_active);
 		console.log("check_id=", check_id);
 		
