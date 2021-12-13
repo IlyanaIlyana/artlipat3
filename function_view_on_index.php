@@ -211,31 +211,37 @@ function ShowFirstPage()
 
             <section class="panel">
               <header class="panel-heading">
-                Мои задачи
+                Мои задачи                
               </header>
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th colspan="3">Актуальные задачи</th>                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php 
-                    ShowCasesToWorkOnForPerson($_SESSION['userid'], 1)?>                     
-                  </tbody>
-                
-                  <thead>
-                    <tr>
-                      <th colspan="3">Запланированные задачи</th>                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php 
-                    ShowCasesToWorkOnForPerson($_SESSION['userid'], 2)?>                     
-                  </tbody>
-                </table>
-              </div>
+              <form action="art_control/processing_hide_done.php" method="post">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Актуальные задачи                        
+                        </th>
+                        <th colspan="2">
+                        <input type="submit" value="скрыть сделанные" class="btn-primary" id="done">  
+                        </th>                      
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                      ShowCasesToWorkOnForPerson($_SESSION['userid'], 1)?>                     
+                    </tbody>
+                  
+                    <thead>
+                      <tr>
+                        <th colspan="4">Запланированные задачи</th>                      
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                      ShowCasesToWorkOnForPerson($_SESSION['userid'], 2)?>                     
+                    </tbody>
+                  </table>
+                </div>
+              </form>  
             </section> 
             <?php            
             }

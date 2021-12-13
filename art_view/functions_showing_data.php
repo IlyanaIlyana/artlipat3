@@ -37,15 +37,12 @@ function ShowCasesToWorkOnForPerson($person_id,$x) //вызывается из f
         print "<tr>";
         ?>
         <td>
-            <!-- <form action="#" method="get" accept-charset="utf-8"> -->
-                <div class="checkboxes">
-                <!-- <label class="label_check" for="checkbox-<?php echo $row2['id_task_case']?>"> -->
-                    <input class="active" <?php if ($row2['task_status'] == 0): ?>
-                            checked="checked"<?php endif; ?> 
-                            value="<?php echo $row2['id_task_case']?>" type="checkbox"  />                               
-                <!-- </label> -->
-                </div>
-            <!-- </form> -->
+            <div class="checkboxes">
+                <input class="active" <?php if ($row2['task_status'] == 0): ?>
+                        checked="checked"<?php endif; ?> 
+                        name="checkbox_done[]"
+                        value="<?php echo $row2['id_task_case']?>" type="checkbox" /> 
+            </div>
         </td>
         <?php
         printf("<td>%s</td><td>%s</td><td>%s</td>", 
