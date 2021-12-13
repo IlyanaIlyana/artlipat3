@@ -44,9 +44,12 @@ function ShowCasesToWorkOnForPerson($person_id,$x) //вызывается из f
                         value="<?php echo $row2['id_task_case']?>" type="checkbox" /> 
             </div>
         </td>
+        <td <?php if ($row2['task_status'] == 0): ?>
+            style="text-decoration: line-through;" <?php endif; ?>>
+            <?php echo $row2['task_name']." ".$row2['what']." ".$row2['where']?>   
+        </td>   
         <?php
-        printf("<td>%s</td><td>%s</td><td>%s</td>", 
-        $row2['task_name']." ".$row2['what']." ".$row2['where'], 
+        printf("<td>%s</td><td>%s</td>",         
         "<a href='page_for_case_card.php?sent_case_id=".$row2['id_case']."'>".
             $row2['our_case_ref']."</a>", 
         $row2['task_end_term']); 

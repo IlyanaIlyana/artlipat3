@@ -371,3 +371,38 @@ function SelectThisTaskOnCase($task_case_id) // вызывается в файл
     $row_casetask = mysqli_fetch_assoc($result_task);        
     //print_r ($row_casetask);  
 }
+
+function NoTasksDoneNotHidden() //вызывается из 
+{
+	global $db;
+/*     global $show_hide_button; */
+    $account_id = $_SESSION['useraccountid'];
+
+    $SQL = 
+        "SELECT * FROM task_cases tc 
+            JOIN cases c2 ON c2.id_case = tc.case_id 
+            JOIN employees e2 ON e2.id_employee = tc.task_responsible_id 
+            JOIN tasks t2 ON t2.id_task = tc.task_id 
+            LEFT JOIN whats w2 ON w2.id_what = tc.what_id 
+            WHERE tc.still_show_on_index = 1 AND tc.task_status = 0 
+                AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 
+                AND e2.account_id = $account_id"; 
+    //print $SQL;
+
+    if (!$result = mysqli_query($db, $SQL)) 
+    {
+        printf("Ошибка в запросе на выбоку незакрытых задач: %s\n", mysqli_error($db));
+    }        
+    //printf ("Число строк в запросе: %d<br>", mysqli_num_rows($result));          
+    if  (mysqli_num_rows($result) == 0){
+        $not_show_hide_button = true;
+        //echo 'true';
+    }  
+    else{
+        $not_show_hide_button = false;
+        //echo 'false';
+    }
+
+    //print("not_show_hide_button:".$not_show_hide_button);  
+    return $not_show_hide_button;
+}

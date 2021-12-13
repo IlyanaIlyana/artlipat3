@@ -221,7 +221,10 @@ function ShowFirstPage()
                         <th colspan="2">Актуальные задачи                        
                         </th>
                         <th colspan="2">
-                        <input type="submit" value="скрыть сделанные" class="btn-primary" id="done">  
+                        <input type="submit" value="скрыть сделанные" class="btn-primary" 
+                        <?php if (NoTasksDoneNotHidden()): ?>
+                          hidden="true"<?php endif; ?> 
+                        />  
                         </th>                      
                       </tr>
                     </thead>
