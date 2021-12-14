@@ -9,7 +9,8 @@ if(!isset($_SESSION['userid']))
   }
 
 require_once "art_control/start_mysql.php";
-require_once "functions_preparing_data_to_show.php"; 
+require_once "art_view/functions_showing_data.php"; 
+require_once "art_control/functions_selecting_data.php"; 
 
 $id_case = $_GET['sent_case_id']; // id дела
 $id_account = $_SESSION['useraccountid']; //id аккаунта
@@ -75,7 +76,6 @@ EndDB();
           </div>
         </div> <!-- line 5: row-->
         <!-- page start-->
-                 
 
         <div class="row">
           <div class="col-md-4 portlets">            
@@ -88,9 +88,7 @@ EndDB();
                   <a style="color: #007aff" href="page_for_case_details.php?sent_case_id=<?php echo $id_case?>"><i class="fa fa-edit info" ></i></a>
                 </div>
               </div>
-
-              <div class="panel-body">                
-                
+              <div class="panel-body"> 
                 <div class="form quick-post">
                   <!-- Case data entering by selection-->
                   <form class="form-horizontal" action="" method="post">                  
@@ -151,134 +149,119 @@ EndDB();
             </div> <!-- line 7: div class="panel panel-default" -->            
           </div> <!-- line 6: portlet -->
 
-          <div class="col-md-8 portlets"> 
+          <div class="col-md-4 portlets"> 
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h2><strong>Все задачи</strong></h2> 
               </div>
               <div class="panel-body">
-                <!-- <div class="form quick-post"> -->
-                    <!-- <form class="form-horizontal" action="processing_task_done.php" method="post"> -->
-                    <?php  
-                      StartDB(); 
-                      SelectAllTaskOnCaseId($id_case); // находится в functions_preparong_data_to_show.php
-                      EndDB();                                                          
-                        while($row = mysqli_fetch_assoc($result_casetask))	
-                        {	                             
-                          ?>    
-                            <a <?php if ($row['task_status'] == 0): ?>
-                              style='text-decoration:line-through'<?php endif; ?>
-                              href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
-                                    &sent_task_id=<?php echo $row['task_id']?>
-                                    &sent_taskstatus=0
-                                    &sent_task_case_id=<?php echo $row['id_task_case']?>
-                                    &sent_our_case_ref=<?php echo $row_casedata['our_case_ref']?>'> 
-                             
-                                <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>
-                              <br>        
-                            </a>
-                          <?php
-                            }                            
-                            mysqli_free_result($result_casetask);
-                          ?>	      
+                <?php  
+                StartDB(); 
+                SelectAllTaskOnCaseId($id_case); // находится в functions_preparong_data_to_show.php
+                EndDB();                                                          
+                while($row = mysqli_fetch_assoc($result_casetask))	
+                {	                             
+                  ?>    
+                    <a <?php if ($row['task_status'] == 0): ?>
+                      style='text-decoration:line-through'<?php endif; ?>
+                      href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
+                            &sent_task_id=<?php echo $row['task_id']?>
+                            &sent_taskstatus=0
+                            &sent_task_case_id=<?php echo $row['id_task_case']?>
+                            &sent_our_case_ref=<?php echo $row_casedata['our_case_ref']?>'> 
+                        <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>
+                      <br>        
+                    </a>
+                    <?php
+                  }                            
+                    mysqli_free_result($result_casetask);
+                  ?>	      
               </div><!-- line 8: class="panel-body" -->                
             </div> <!-- line 8: div class="panel panel-default" -->  
-          </div> <!-- line 6: portlet -->   
-        </div> <!-- line 5: row-->
-
-        <div class="row"> 
-          
+          </div> <!-- line 6: portlet --> 
         
-
-
-        
-          <div class="col-lg-4">
+          <div class="col-md-4 portlets">
             <section class="panel">
               <header class="panel-heading">
                 <h2><strong>Новая задача</strong></h2> 
               </header>
               <div class="panel-body">
-                <form class="form-inline" action="processing_add_task_to_case.php" method="post">  
-                        <div class="panel-body">  
-                          <div class="form-group">
-                            <div >
-                              <select id='taskid' class="form-control" name="taskid" required>                              
-                              <option value="">- Новая задача* -</option> 
-                              <?php                                                            
-                                while($row = mysqli_fetch_assoc($result_tasks))	
-                                {	                              
-                                  print "<option  value=".$row['id_task'].">".$row['task_name']."</option>";
-                                }                            
-                                mysqli_free_result($result_tasks);
-                              ?>	
-                              </select>
-                            </div>
-                          </div>
-                          
-                          <div class="form-group"  id="whats" style="display: none">
-                            <div >
-                            <select class='form-control' name='what_id'>
-                              <option value="">- выбери что именно -</option>
-                              <?php
-                              StartDB();
-                              PrepareIndependentListsForChoice(); // находится в functions_preparing_data_to_show.php
-                                                        // получим выборку $result_whats ;                         
-                              EndDB();
-                                while($row = mysqli_fetch_assoc($result_whats))	
-                                {	  
-                                //print_r($row);                            
-                                if ($row['id_what']==$row_casetask['what_id']){print "<option selected value=".$row['id_what'].">".$row['what']."</option>";}
-                                else {print "<option value=".$row['id_what'].">".$row['what']."</option>";}
-                                } 
-                                mysqli_free_result($result_whats);
-                              ?>
-                            </select>
-                            </div>
-                          </div>
-                          <!-- Employee -->
-                          <div class="form-group">                            
-                            <div >
-                              <select class="form-control" name="responsible_id">
-                              <option value="">- кто делает -</option>  
-                              <?php 
-                                /* StartDB();
-                                $result9 = mysqli_query($db, $SQL9);
-                                EndDB(); */                            
-                                while($row = mysqli_fetch_assoc($result_emplos))	
-                                {	                              
-                                  print "<option value=".$row['id_employee'].">".$row['employee_nickname']."</option>";
-                                }                            
-                                mysqli_free_result($result_nicks);
-                              ?>	
-                              </select>
-                            </div>
-                          </div>
-                          <!-- Term -->
-                          <div class="form-group">                            
-                            <div >
-                              
-                              <input id= "date1" type="date" class="form-control" name="start_term" value=<?php echo date('Y-m-d')?>><label>начать</label>
-                            </div>
-                          </div>  
-                          <div class="form-group">                            
-                            <div >
-                            <label>закончить</label><input type="date" class="form-control" name="end_term" value="<?php echo date('Y-m-d')?>">
-                              
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <input name="case_id" type="hidden" value="<?php echo $id_case?>">
 
-                            <!-- Buttons -->
-                            <div>
-                              <button type="submit" class="btn btn-primary">Записать</button>                              
-                            </div>
-                          </div>
-                          </div>
-                        </form> 
-                      </div> 
-                              </section>
-        </div> 
+              <form role="form" action="art_control/processing_add_task_to_case.php" method="post">
+                <div class="form-group">
+                  <label for="taskid">Задача*</label>  
+                  <select id='taskid' class="form-control" name="taskid" required>  
+                    <option value=""></option> 
+                    <?php 
+                      PrepareIndependentListsForChoice();  
+                        global $result_tasks;
+                        global $result_whats;                                                           
+                      while($row = mysqli_fetch_assoc($result_tasks))	
+                      {	                              
+                        print "<option  value=".$row['id_task'].">".$row['task_name']."</option>";
+                      }                            
+                      mysqli_free_result($result_tasks);
+                    ?>	
+                  </select> 
+                </div>
+
+                <div class="form-group" id="whats" style="display: none">
+                  <label for="what">что</label>   
+                  <select class='form-control' name='what_id' id="what" >
+                    <option value="">- выбери что именно -</option>
+                    <?php
+                        while($row = mysqli_fetch_assoc($result_whats))	
+                        {	  
+                        //print_r($row);                            
+                        if ($row['id_what']==$row_casetask['what_id']){print "<option selected value=".$row['id_what'].">".$row['what']."</option>";}
+                        else {print "<option value=".$row['id_what'].">".$row['what']."</option>";}
+                        } 
+                        mysqli_free_result($result_whats);
+                    ?>
+                  </select>
+                </div>
+
+                <?php
+                  // print "SESSION['usersolo']=".$_SESSION['usersolo']."<br>";
+                  if ($_SESSION['usersolo'] != 1)
+                  {
+                  ?> 
+                    <div class="form-group">
+                      <label for="responsible">Кто делает</label> 
+                      <select class="form-control" name="responsible_id" id="responsible">
+                        <option value="">- кто делает -</option>  
+                        <?php    
+                          global $result_emplos;                        
+                          while($row = mysqli_fetch_assoc($result_emplos))	
+                          {	                              
+                            print "<option value=".$row['id_employee'].">".$row['employee_nickname']."</option>";
+                          }                            
+                          mysqli_free_result($result_emplos);
+                        ?>	
+                      </select>                    
+                    </div>                  
+                  <?php
+                    }
+                  ?> 
+
+                  <div class="form-group">
+                  <label for="date1">начать</label>  
+                  <input id= "date1" type="date" class="form-control" name="start_term" value=<?php echo date('Y-m-d')?>>
+                  </div>    
+                  
+                  <div class="form-group">
+                  <label for="date2">закончить</label>  
+                  <input id= "date2" type="date" class="form-control" name="end_term" value=<?php echo date('Y-m-d')?>>
+                  </div>
+
+                  <input name="case_id" type="hidden" value="<?php echo $id_case?>">
+
+                  <button type="submit" class="btn btn-primary">Записать</button>
+                </form>  
+              </div> 
+            </section>
+          </div>
+        </div> <!-- line 5: row-->
         
 	      <!-- page end-->
       </section> <!--line 4: section class="wrapper"-->
