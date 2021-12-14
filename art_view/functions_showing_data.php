@@ -9,15 +9,17 @@ function ShowAllCasesToWorkOn($x) //вызывается из function ShowFirst
         ?>
             <tr> 
                 <td>
-                    <!-- <form action="#" method="get" accept-charset="utf-8"> -->
-                        <div class="checkboxes">
-                        <label class="label_check" for="checkbox-01">
-                            <input name="sample-checkbox-01" id="checkbox-01" value="1" type="checkbox" checked />                               
-                        </label>
-                        </div>
-                    <!-- </form> -->
+                    <div class="checkboxes">
+                    <input class="active" <?php if ($row['task_status'] == 0): ?>
+                            checked="checked"<?php endif; ?> 
+                            name="checkbox_done[]"
+                            value="<?php echo $row['id_task_case']?>" type="checkbox" /> 
+                    </div>
                 </td>            
-                <td> <?php echo $row['task_name']." ".$row['what']." ".$row['where']?></td>
+                <td <?php if ($row['task_status'] == 0): ?>
+                    style="text-decoration: line-through;" <?php endif; ?>>
+                    <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>   
+                </td> 
                 <td><a href='page_for_case_card.php?sent_case_id=<?php echo$row['id_case']?>'>
                     <?php echo $row['our_case_ref']?></a></td>
                 <td><?php echo $row['task_end_term']?></td>

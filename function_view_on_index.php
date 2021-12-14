@@ -179,15 +179,16 @@ function ShowFirstPage()
                   <div class="form-group">
                   <label for="responsible">Кто делает</label> 
                   <select class="form-control" name="responsible_id" id="responsible">
-                              <option value="">- кто делает -</option>  
-                              <?php                           
-                            /*     while($row = mysqli_fetch_assoc($result_emplos))	
-                                {	                              
-                                  print "<option value=".$row['id_employee'].">".$row['employee_nickname']."</option>";
-                                }                            
-                                mysqli_free_result($result_nicks); */
-                              ?>	
-                              </select>                    
+                    <option value="">- кто делает -</option>  
+                      <?php    
+                        global $result_emplos;                        
+                        while($row = mysqli_fetch_assoc($result_emplos))	
+                        {	                              
+                          print "<option value=".$row['id_employee'].">".$row['employee_nickname']."</option>";
+                        }                            
+                        mysqli_free_result($result_emplos);
+                      ?>	
+                    </select>                    
                   </div>
                   </div>  
                   
@@ -270,27 +271,36 @@ function ShowFirstPage()
                   <div id="total" class="tab-pane active">                                
                     <div class="row">                    
                       <div class="col-sm-12">
-                        <section class="panel">
-                          <header class="panel-heading">
-                            <h2><strong>Актуальные задачи</strong></h2>                
-                          </header>                          
-                          <div class="table-responsive">
-                            <table class="table">                          
-                              <tbody>
-                                  <?php ShowAllCasesToWorkOn(1) ?>
-                              </tbody>
-                            </table>
-                          </div>
-                          <header class="panel-heading">
-                            <h2><strong>Запланированные задачи</strong></h2>                
-                          </header>
-                          <div class="table-responsive">
-                            <table class="table">                          
-                              <tbody>
-                                  <?php ShowAllCasesToWorkOn(2) ?>
-                              </tbody>
-                            </table>
-                          </div>
+                        <section class="panel">                          
+                          <form action="art_control/processing_hide_done.php" method="post">                          
+                            <div class="table-responsive">
+                              <table class="table">                          
+                                <thead>
+                                  <tr>
+                                    <th colspan="3">Актуальные задачи </th>  
+                                    <th colspan="2">
+                                      <input type="submit" value="скрыть сделанные" class="btn-primary" 
+                                        <?php if (NoTasksDoneNotHidden()): ?>
+                                        hidden="true"<?php endif; ?> 
+                                        id="hidden_button"/>  
+                                    </th>                      
+                                  </tr>
+                                </thead>  
+                                <tbody>
+                                    <?php ShowAllCasesToWorkOn(1) ?>
+                                </tbody>
+
+                                <thead>
+                                  <tr>
+                                    <th colspan="5">Запланированные задачи</th>                      
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <?php ShowAllCasesToWorkOn(2) ?>
+                                </tbody>
+                              </table>
+                            </div>
+                          </form>
                         </section>
                       </div>
                     </div> 
