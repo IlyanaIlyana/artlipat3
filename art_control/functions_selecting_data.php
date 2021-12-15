@@ -406,3 +406,21 @@ function NoTasksDoneNotHidden() //вызывается из
     //print("not_show_hide_button:".$not_show_hide_button);  
     return $not_show_hide_button;
 }
+
+$result_all_cases;
+function SelectAllCases()
+{
+    global $db;
+    global $result_all_cases;
+    $account_id = $_SESSION['useraccountid'];
+    $SQL = 
+        "SELECT c.id_case, c.our_case_ref, c.client_case_ref, c.pto_case_ref, c.not_closed_case   
+        FROM cases c 
+        JOIN employees e2 ON e2.id_employee = c.registrant_id
+        WHERE e2.account_id=$account_id";
+    //print $SQL;
+    if (!$result_all_cases = mysqli_query($db, $SQL)) 
+    {
+		printf("Ошибка в запросе на выбор всех дел: %s\n", mysqli_error($db));
+	}
+}

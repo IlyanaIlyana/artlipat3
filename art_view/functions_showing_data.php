@@ -133,3 +133,38 @@ function ShowTabsContent() //вызывается из function ShowFirstPage(),
     }
     mysqli_free_result($result_emplos);    
 }
+
+function ShowAllCases()
+{
+    global $db;
+    global $result_all_cases;
+    SelectAllCases();
+        //printf ("Число строк в запросе: %d<br>", mysqli_num_rows($result));
+
+        while( $row = mysqli_fetch_assoc($result_all_cases) )
+        { 
+            if ($row['not_closed_case']==1){
+            print "<tr>"; 
+            printf("<td>%s</td><td>%s</td><td>%s</td>", 
+            "<a href='page_for_case_card.php?sent_case_id=".$row['id_case']."'>".$row['our_case_ref']."</a>", 
+            "<a href='page_for_case_card.php?sent_case_id=".$row['id_case']."'>".$row['client_case_ref']."</a>", 
+            "<a href='page_for_case_card.php?sent_case_id=".$row['id_case']."'>".$row['pto_case_ref']."</a>"); 
+            print "</tr>"; 
+            }
+            else {
+                print "<tr class='danger'>"; 
+                printf("<td>%s</td><td>%s</td><td>%s</td>", 
+                "<a href='page_for_case_card.php?sent_case_id=".$row['id_case']."'>".$row['our_case_ref']."</a>", 
+                "<a href='page_for_case_card.php?sent_case_id=".$row['id_case']."'>".$row['client_case_ref']."</a>", 
+                "<a href='page_for_case_card.php?sent_case_id=".$row['id_case']."'>".$row['pto_case_ref']."</a>"); 
+                print "</tr>"; 
+                }
+        }                    
+                    
+        ?>
+                
+        </div>
+        <?php
+		mysqli_free_result($result_all_cases);
+	
+} 
