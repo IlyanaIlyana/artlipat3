@@ -417,7 +417,8 @@ function SelectAllCases()
         "SELECT c.id_case, c.our_case_ref, c.client_case_ref, c.pto_case_ref, c.not_closed_case   
         FROM cases c 
         JOIN employees e2 ON e2.id_employee = c.registrant_id
-        WHERE e2.account_id=$account_id";
+        WHERE e2.account_id=$account_id
+        LIMIT 10";
     //print $SQL;
     if (!$result_all_cases = mysqli_query($db, $SQL)) 
     {
