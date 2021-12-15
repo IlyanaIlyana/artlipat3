@@ -3,7 +3,7 @@ require_once "header.php";
 /* require_once "art_control/functions_register.php";	
 require_once "art_control/functions_selecting_data.php"; */
 require_once "art_control/functions_register.php";	
-require_once "functions_selecting_data.php";
+require_once "art_control/functions_selecting_data.php";
 
 
 // Если была нажата кнопка "зарегистрироваться")
