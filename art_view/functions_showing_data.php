@@ -2,12 +2,18 @@
 
 function ShowAllCasesToWorkOn($x) //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
 {
-	global $result_cases_to_work;
+	$today = date("Y-m-d");
+    $nextpoint1 = date("Y-m-d", strtotime("+7 days"));
+    $nextpoint2 = date("Y-m-d", strtotime("+14 days"));
+    global $result_cases_to_work;
     SelectAllCasesToWorkOn($x);
     while($row = mysqli_fetch_assoc($result_cases_to_work))
     { 
         ?>
-            <tr> 
+            <tr <?php if ($row['task_end_term'] < $today): ?> style="background: #f7ac96" <?php  
+                elseif ($row['task_end_term'] < $nextpoint1): ?> style="background: #f1d0b4" <?php  
+                elseif ($row['task_end_term'] < $nextpoint2): ?> style="background: #f1e5b4" <?php  
+                else: ?> style="background: #cee7f3" <?php endif; ?>> 
                 <td>
                     <div class="checkboxes">
                     <input class="active" <?php if ($row['task_status'] == 0): ?>
@@ -33,11 +39,17 @@ function ShowAllCasesToWorkOn($x) //вызывается из function ShowFirst
 function ShowCasesToWorkOnForPerson($person_id,$x) //вызывается из function ShowTabsContent(), расположенной здесь же
 {
 	SelectCasesToWorkOnForPerson($person_id, $x);
+    $today = date("Y-m-d");
+    $nextpoint1 = date("Y-m-d", strtotime("+7 days"));
+    $nextpoint2 = date("Y-m-d", strtotime("+14 days"));
     global $result_cases_to_work_person;
     while($row2 = mysqli_fetch_assoc($result_cases_to_work_person))
-    { 
-        print "<tr>";
+    {         
         ?>
+        <tr <?php if ($row2['task_end_term'] < $today): ?> style="background: #f7ac96" <?php  
+                elseif ($row2['task_end_term'] < $nextpoint1): ?> style="background: #f1d0b4" <?php 
+                elseif ($row2['task_end_term'] < $nextpoint2): ?> style="background: #f1e5b4" <?php  
+                else: ?> style="background: #cee7f3" <?php endif; ?>>
         <td>
             <div class="checkboxes">
                 <input class="active" <?php if ($row2['task_status'] == 0): ?>
