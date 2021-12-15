@@ -53,7 +53,8 @@ export function SearchRefNumber()
 				console.log("searchtag словили из html по клику=", searchtag);
 			$.ajax({
 				type: 'POST',
-				url:'search_case_name.php',
+				/* url:'search_case_name.php', */
+				url:'../art_ajax/search_case_name.php',
 				data: {mPsearchtag:searchtag},
 				dataType: "json",
 				success:function(data){
@@ -292,7 +293,7 @@ export function SelectCaseAuto()
 $("#autocomplete").autocomplete({
 	/* source: "http://artlipat3/search.php", */	
 	/* source: "http://artlipat3/art_control/search_case_name_get.php", */	
-	source: "../art_control/search_case_name_get.php",
+	source: "../art_ajax/search_case_name_get.php",
 	});
 }
 
@@ -329,7 +330,8 @@ export function CheckBoxAjax()
 		
 			$.ajax({
 				type: "POST",
-				url: "http://artlipat3/art_ajax/check_box_on.php",
+				/* url: "http://artlipat3/art_ajax/check_box_on.php", */
+				url: "../art_ajax/check_box_on.php",
 				data: {id: check_id, active: check_active},
 				/* success: function(){
 					$('form#submit').hide(function(){$('div.success').fadeIn();});
