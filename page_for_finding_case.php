@@ -7,7 +7,8 @@ if(!isset($_SESSION['userid']))
     exit();  
   }
 require_once "header.php"; 	
-require_once "functions_preparing_data_to_show.php"; 
+require_once "art_control/functions_selecting_data.php"; 
+require_once "art_view/functions_showing_data.php";
 ?>
     
 

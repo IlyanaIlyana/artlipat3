@@ -8,8 +8,9 @@ if(!isset($_SESSION['userid']))
     exit();  
   }
 
-require_once "start_mysql.php"; 	
-require_once "functions_preparing_data_to_show.php"; 
+require_once "art_control/start_mysql.php"; 
+require_once "art_control/functions_selecting_data.php";	
+require_once "art_view/functions_showing_data.php"; 
 
 $id_case = $_GET['sent_case_id']; // id дела
 $id_account = $_SESSION['useraccountid']; //id аккаунта
