@@ -166,7 +166,7 @@ EndDB();
                       style='text-decoration:line-through'<?php endif; ?>
                       href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
                             &sent_task_id=<?php echo $row['task_id']?>
-                            &sent_taskstatus=0
+                            &sent_taskstatus=<?php echo $row['task_status']?>
                             &sent_task_case_id=<?php echo $row['id_task_case']?>
                             &sent_our_case_ref=<?php echo $row_casedata['our_case_ref']?>'> 
                         <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>
