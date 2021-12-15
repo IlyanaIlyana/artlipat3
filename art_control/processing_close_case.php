@@ -22,7 +22,7 @@ require_once "start_mysql.php";
     }      
    
     
-    header("Refresh: 1; URL = page_for_case_card.php?sent_case_id=$case_id");
+    header("Refresh: 1; URL = ../page_for_case_card.php?sent_case_id=$case_id");
    /*  header("Location: URL = page_for_case_card.php?sent_case_id=$case_id"); */
 	
 	EndDB();
