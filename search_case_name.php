@@ -1,4 +1,4 @@
-<?php session_start(); require_once "start_mysql.php";
+<?php session_start(); require_once "art_control/start_mysql.php";
 
 
 	$searchtag = '';
