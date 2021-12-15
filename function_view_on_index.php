@@ -92,7 +92,7 @@ function ShowFirstPage()
           <li class="">
             <a class="" href="art_admin/index.php">
                 <i class="icon_house_alt"></i>
-                <span>Настройки</span>
+                <span>Команда</span>
             </a>
           </li> 
           <?php        
@@ -138,8 +138,8 @@ function ShowFirstPage()
                   </div>  
 
                   <div class="form-group">
-                  <label for="taskid">Задача*</label>  
-                  <select id='taskid' class="form-control" name="taskid" required>  
+                  <label for="taskid_on_index">Задача*</label>  
+                  <select id='taskid_on_index' class="form-control" name="taskid" required>  
                     <option value=""></option> 
                         <?php 
                           PrepareIndependentListsForChoice();  
@@ -181,7 +181,10 @@ function ShowFirstPage()
                   <select class="form-control" name="responsible_id" id="responsible">
                     <option value="">- кто делает -</option>  
                       <?php    
-                        global $result_emplos;                        
+                        global $result_emplos; 
+                        
+                        SelectEmployeesOnAccountId();
+                                               
                         while($row = mysqli_fetch_assoc($result_emplos))	
                         {	                              
                           print "<option value=".$row['id_employee'].">".$row['employee_nickname']."</option>";
