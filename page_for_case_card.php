@@ -19,7 +19,7 @@ $id_account = $_SESSION['useraccountid']; //id аккаунта
 StartDB();
 
 // получаем весь список объектов ИС и юрисдикций $result_ipsubjects;  $result_jurisdictions; 
-PrepareIndependentListsForChoice(); // вызов из файла functions_preparing_data_to_show.php
+/* PrepareIndependentListsForChoice(); */ // вызов из файла functions_preparing_data_to_show.php
 
 // получаем непосредственно массив $row_casedata для данного дела
 SelectDataOnCaseId($id_case); // вызов из файла functions_preparing_data_to_show.php
@@ -187,13 +187,15 @@ EndDB();
               </header>
               <div class="panel-body">
 
-              <form role="form" action="art_control/processing_add_task_to_case.php" method="post">
+              <form role="form" action="art_control/processing_add_task_to_case_from_case.php" method="post">
                 <div class="form-group">
-                  <label for="taskid">Задача*</label>  
-                  <select id='taskid' class="form-control" name="taskid" required>  
+                  <label for="taskid_on_case">Задача*</label>  
+                  <select id='taskid_on_case' class="form-control" name="taskid" required>  
                     <option value=""></option> 
                     <?php 
-                      PrepareIndependentListsForChoice();  
+                      StartDB();
+                      PrepareIndependentListsForChoice(); 
+                      EndDB();  
                         global $result_tasks;
                         global $result_whats;                                                           
                       while($row = mysqli_fetch_assoc($result_tasks))	
