@@ -25,7 +25,7 @@ require_once "art_view/functions_showing_data.php";
       <div class="top-nav notification-row">
         <!-- notificatoin dropdown start-->
         <span class="profile-ava">
-        <a href="index.php" ><img alt="photo" src="admin/<?php echo $_SESSION ['userphotourl'] ?>"></a>
+        <a href="index.php" ><img alt="photo" src="art_admin/<?php echo $_SESSION ['userphotourl'] ?>"></a>
         </span>
         
         <!-- notificatoin dropdown end-->

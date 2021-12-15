@@ -47,7 +47,7 @@ EndDB();
       <div class="top-nav notification-row">
         <!-- notificatoin dropdown start-->
         <span class="profile-ava">
-        <a href="index.php" ><img alt="photo" src="admin/<?php echo $_SESSION ['userphotourl'] ?>"></a>
+        <a href="index.php" ><img alt="photo" src="art_admin/<?php echo $_SESSION ['userphotourl'] ?>"></a>
         </span>
         <!-- notificatoin dropdown end-->
       </div>
@@ -178,7 +178,7 @@ EndDB();
                           <button type="submit" class="btn btn-primary">Сохранить исправления</button>
                           <?php }?> 
 
-                          <a type="button" class="btn btn-danger" href="deleting_task.php?task_case_id=<?php echo $id_task_case?>&case_id=<?php echo $id_case?>">Удалить вообще эту задачу</a>
+                          <a type="button" class="btn btn-danger" href="art_control/deleting_task.php?task_case_id=<?php echo $id_task_case?>&case_id=<?php echo $id_case?>">Удалить вообще эту задачу</a>
                           
                           </form>
                         </div>
