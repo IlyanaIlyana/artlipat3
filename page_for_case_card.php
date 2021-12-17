@@ -155,27 +155,39 @@ EndDB();
                 <h2><strong>Все задачи</strong></h2> 
               </div>
               <div class="panel-body">
+                <table >  
+                <tbody>
                 <?php  
                 StartDB(); 
-                SelectAllTaskOnCaseId($id_case); // находится в functions_preparong_data_to_show.php
+                SelectAllTaskOnCaseId($id_case); // находится в functions_selecting_data.php
                 EndDB();                                                          
                 while($row = mysqli_fetch_assoc($result_casetask))	
                 {	                             
-                  ?>    
-                    <a <?php if ($row['task_status'] == 0): ?>
-                      style='text-decoration:line-through'<?php endif; ?>
-                      href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
-                            &sent_task_id=<?php echo $row['task_id']?>
-                            &sent_taskstatus=<?php echo $row['task_status']?>
-                            &sent_task_case_id=<?php echo $row['id_task_case']?>
-                            &sent_our_case_ref=<?php echo $row_casedata['our_case_ref']?>'> 
-                        <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>
-                      <br>        
-                    </a>
+                  ?>
+                      <tr> 
+                        <td> 
+                          <a <?php if ($row['task_status'] == 0): ?>
+                            style='text-decoration:line-through'<?php endif; ?>
+                            href='page_for_case_task.php?sent_case_id=<?php echo $row['case_id']?>
+                                  &sent_task_id=<?php echo $row['task_id']?>
+                                  &sent_taskstatus=<?php echo $row['task_status']?>
+                                  &sent_task_case_id=<?php echo $row['id_task_case']?>
+                                  &sent_our_case_ref=<?php echo $row_casedata['our_case_ref']?>'> 
+                              <?php echo $row['task_name']." ".$row['what']." ".$row['where']?>
+                            <br>        
+                          </a>
+                        </td> 
+                        <td> 
+                        <?php echo $row['task_end_term']?>
+                        </td> 
+                      </tr> 
+                   
                     <?php
                   }                            
                     mysqli_free_result($result_casetask);
-                  ?>	      
+                  ?>
+                   </tbody>
+                    </table>	      
               </div><!-- line 8: class="panel-body" -->                
             </div> <!-- line 8: div class="panel panel-default" -->  
           </div> <!-- line 6: portlet --> 
