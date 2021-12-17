@@ -164,6 +164,34 @@ EndDB();
             <!-- для нового блока вставию сюда div class="panel panel-default" -->
           </div> <!-- line 6: portlet -->
           <div class="col-md-6 portlets"> 
+
+            <div class="panel panel-default" >
+              <div class="panel-heading">
+                <div class="pull-left">Закрытие дела</div>
+                <!-- <div class="widget-icons pull-right">
+                  <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                  <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                </div> -->
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="padd">  
+                  <div class="form quick-post">
+                    <form class="form-horizontal" action="art_control/processing_close_case.php" method="post">
+                      <button type="submit" class="btn btn-danger">Закрыть дело</button>
+                      <input type="hidden"  name="case_id" value="<?php echo $id_case?>">
+                     </form>
+                  </div> <!-- line 10: div class="form quick-post" -->  
+                  <div class="form quick-post">
+                     <form class="form-horizontal" action="art_control/processing_restore_case.php" method="post">
+                      <button type="submit" class="btn btn-info">Восстановить закрытое в делопроизводство</button>
+                      <input type="hidden"  name="case_id" value="<?php echo $id_case?>">
+                     </form>
+                  </div> <!-- line 10: div class="form quick-post" -->
+                </div> <!-- line 9: div class="padd" -->
+              </div> <!-- line 8: class="panel-body" --> 
+            </div> <!-- line 7: div class="panel panel-default" -->
+
             <div class="panel panel-default" >
               <div class="panel-heading">
                 <div class="pull-left">проверка референсов</div>
@@ -196,32 +224,7 @@ EndDB();
               </div> <!-- line 8: class="panel-body" --> 
             </div> <!-- line 7: div class="panel panel-default" -->
 
-            <div class="panel panel-default" >
-              <div class="panel-heading">
-                <div class="pull-left">Закрытие дела</div>
-                <!-- <div class="widget-icons pull-right">
-                  <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-                  <a href="#" class="wclose"><i class="fa fa-times"></i></a>
-                </div> -->
-                <div class="clearfix"></div>
-              </div>
-              <div class="panel-body">
-                <div class="padd">  
-                  <div class="form quick-post">
-                    <form class="form-horizontal" action="art_control/processing_close_case.php" method="post">
-                      <button type="submit" class="btn btn-danger">Закрыть дело</button>
-                      <input type="hidden"  name="case_id" value="<?php echo $id_case?>">
-                     </form>
-                  </div> <!-- line 10: div class="form quick-post" -->  
-                  <div class="form quick-post">
-                     <form class="form-horizontal" action="art_control/processing_restore_case.php" method="post">
-                      <button type="submit" class="btn btn-info">Восстановить закрытое в делопроизводство</button>
-                      <input type="hidden"  name="case_id" value="<?php echo $id_case?>">
-                     </form>
-                  </div> <!-- line 10: div class="form quick-post" -->
-                </div> <!-- line 9: div class="padd" -->
-              </div> <!-- line 8: class="panel-body" --> 
-            </div> <!-- line 7: div class="panel panel-default" -->
+
 
           </div> <!-- line 6: portlet -->
           

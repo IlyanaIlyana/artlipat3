@@ -163,41 +163,38 @@ EndDB();
           </div> <!-- line 6: portlet -->
 
           <div class="col-md-6 portlets"> 
-            <div class="panel panel-default" >
+
+           <div class="panel panel-default" >
               <div class="panel-heading">
-                <div class="pull-left">Список существующих наших референсов</div>
-                <!-- <div class="widget-icons pull-right">
-                  <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
-                  <a href="#" class="wclose"><i class="fa fa-times"></i></a>
-                </div> -->
+                <div class="pull-left">проверка референсов</div>
                 <div class="clearfix"></div>
               </div>
               <div class="panel-body">
                 <div class="padd">  
                   <div class="form quick-post">
-                    <form class="form-horizontal">
-                      <!-- Nickname -->
-                      <div class="form-group">
-                        <label class="control-label col-lg-4" for="title">Проверь использованные референсы</label>
-                        <div class="col-lg-8">
-                          <!-- <input type="text" class="form-control" id="title"> -->
-                          <select multiple class="form-control m-bot15" name="group">                           
-                          <?php                            
-                            while($row = mysqli_fetch_assoc($result_nicks))	
-                            {	                              
-                              print "<option>".$row[our_case_ref]."</option>";
-                            }                            
-                            mysqli_free_result($result_nicks);
-                           ?>	
-                          </select>
-                          
-                        </div>
+                      <div class="form-group">                        
+                        <p><input id="searchtag" size="20" type="text" value="" class="form-control" placeholder="начните вводить референс для поиска"></p>
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>наш референс</th>
+                              <th>референс клиента</th>
+                              <th>референс в ведомстве</th>
+                            </tr>
+                          </thead>
+                          <tbody id="searchresult">
+                            <?php 
+                            StartDB();
+                            ShowAllCases();
+                            EndDB(); ?>
+                          </tbody>
+                        </table>  
                       </div>
-                     </form>
+                     <!-- </form> -->
                   </div> <!-- line 10: div class="form quick-post" -->
                 </div> <!-- line 9: div class="padd" -->
               </div> <!-- line 8: class="panel-body" --> 
-            </div> <!-- line 7: div class="panel panel-default" -->
+            </div> <!-- line 7: div class="panel panel-default" -->          
 
           </div> <!-- line 6: portlet -->
 
