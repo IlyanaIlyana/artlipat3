@@ -1,4 +1,4 @@
-<?php session_start(); $title = "Управление делами"; 
+<?php session_start(); $title = "Artlipat"; 
 
 if(!isset($_SESSION['userid']))
 {		
