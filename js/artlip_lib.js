@@ -277,15 +277,19 @@ export function DateCalculation()
 
 export function SelectTaskChosen()
 {
-$("#taskid_on_index").chosen({
+$("#taskid").chosen({
 	width: '100%',	
 	/* no_results_text: 'Совпадений не найдено:',
 	placeholder_text_single: 'Выберите задачу' */
 });	
 
-$("#taskid_on_case").chosen({
+/* $("#taskid_on_index").chosen({
 	width: '100%',	
 });	
+
+$("#taskid_on_case").chosen({
+	width: '100%',	
+});	 */
 }
 
 export function SelectCaseAuto()
