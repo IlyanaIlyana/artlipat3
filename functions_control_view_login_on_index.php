@@ -10,6 +10,31 @@ function CheckLogin() 	// вызывает здесь функции ShowLogin, 
 		ShowFirstPage(); //  из  файла function_view_on_index.php
 		return;
 	}
+
+	// превращаем статический контент в динамический	
+	global $db;
+	global $rowartlipat;
+	global $rowlogin;
+	global $rowpassword;
+	global $rowenter;
+	global $rowto_new_registration;
+
+	global $rowaccess_denied;
+	global $rowrepeat_login;
+	global $rowpassword_recover;
+	global $rowavailability;
+	
+	$lang = $_GET['lang'];
+	if (!$lang)
+	{
+		$lang= 'en';	
+	}
+	//StartDB();	
+	SelectTranslationForLogin($lang); //kept in art_control/functions_selecting_language.php
+	//EndDB();
+
+
+
 	// Проверка логина
 	if(isset($_POST['enteredlogin']))
 	{
@@ -26,10 +51,10 @@ function CheckLogin() 	// вызывает здесь функции ShowLogin, 
 		else
 		{
 			?>			
-			<p>Доступ запрещен</p>																						
-			<a type="button" class="btn btn-info"href="index.php">Введите логин и пароль повторно</a>
+			<p><?php echo $rowaccess_denied['phrase_'.$lang]?></p>																						
+			<a type="button" class="btn btn-info"href="index.php"><?php echo $rowrepeat_login['phrase_'.$lang]?></a>
 			<p></p>	
-			<a type="button" class="btn btn-warning" href="page_for_restoring_password.php">Восстановление пароля <br> (доступно только для босса) </a>	
+			<a type="button" class="btn btn-warning" href="page_for_restoring_password.php"><?php echo $rowpassword_recover['phrase_'.$lang]?><br><?php echo $rowavailability['phrase_'.$lang]?> </a>	
 			</div>
 			<?php
 		}
@@ -44,6 +69,29 @@ function CheckLogin() 	// вызывает здесь функции ShowLogin, 
 function CheckPassword() // это конечная функция, вызывалась здесь из CheckLogin
 {
 	global $db;
+
+	// превращаем статический контент в динамический	
+/* 	global $db;
+	global $rowartlipat;
+	global $rowlogin;
+	global $rowpassword;
+	global $rowenter;
+	global $rowto_new_registration; */
+
+	global $rowlogin_password;
+	global $rownot_match;
+	
+	$lang = $_GET['lang'];
+	if (!$lang)
+	{
+		$lang= 'en';	
+	}
+	//StartDB();	
+	SelectTranslationForLogin($lang); //kept in art_control/functions_selecting_language.php
+	//EndDB();
+
+
+
     // Составляем строку запроса
     $SQL = "SELECT * FROM employees WHERE employee_login LIKE '".$_SESSION['userlogin']."'";
 
@@ -55,7 +103,7 @@ function CheckPassword() // это конечная функция, вызыва
 			?>						
 				<div class="page-404">
 				<p class="text-404"><i class="icon_lock_alt"></i></p>
-				<h2>Пара логин-пароль <br> не совпадает</h2><br>									
+				<h2><?php echo $rowlogin_password['phrase_'.$lang]?><br><?php echo $rownot_match['phrase_'.$lang]?></h2><br>									
 			<?php								
 			return FALSE;
 		}
@@ -78,6 +126,7 @@ function CheckPassword() // это конечная функция, вызыва
 				$row1 = mysqli_fetch_assoc($result1); 
 				$_SESSION['accountname1'] = $row1['company_name1']; // теперь в сессии у нас есть имя1 аккаунта
 				$_SESSION['accountname2'] = $row1['company_name2']; // теперь в сессии у нас есть имя2 аккаунта				
+				$_SESSION['language'] = $row1['language']; // теперь в сессии у нас есть язык				
 			}
 			else
 			{
@@ -100,8 +149,8 @@ function CheckPassword() // это конечная функция, вызыва
 	// нужно ли сюда result free? 
 	?>								
 		<div class="page-404">
-		<p class="text-404"><i class="icon_lock_alt"></i></p>
-		<h2>Пара логин-пароль <br> не совпадает<br></h2>									
+		<p class="text-404"><i class="icon_lock_alt"></i></p>		
+		<h2><?php echo $rowlogin_password['phrase_'.$lang]?><br><?php echo $rownot_match['phrase_'.$lang]?></h2><br>									
 	<?php	
     return FALSE;
 }
@@ -122,7 +171,7 @@ function ShowLogin() //вызывается здесь из CheckLogin
 		$lang= 'en';	
 	}
 	//StartDB();	
-	SelectTranslationForLogin($lang); //kept in art_control/functions_selecting_data.php
+	SelectTranslationForLogin($lang); //kept in art_control/functions_selecting_language.php
 	//EndDB();
 	?>	
 	<div class="login-img3-body">

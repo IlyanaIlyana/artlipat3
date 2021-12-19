@@ -5,18 +5,34 @@
 function RegMember() 
 {
 	global $db;
+
+	// превращаем статический контент в динамический
+	global $rowno_login;
+	global $rowno_password;
+	global $rowlogin_exists;
+
+	$lang = $_GET['lang'];
+	if (!$lang)
+	{
+		$lang= 'en';	
+	}
+	// <?php echo $rowartlipat['phrase_'.$lang]для вставки фразы вставляем ее ключевое значение после row
+	
+	SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_language.php
+	
+
 	// Проверка данных, введенных в регистрационную форму	
 	// проверка наличия логина кажется излишней, так как уже проверили с filter_var
 	if(!$_POST['enteredemail']) 
 	{
-		print "<br><p>Не указан логин</p>";
+		print "<br><p>".$rowno_login['phrase_'.$lang]."</p>";
 		return FALSE;
 	} 
 
 	// а вот проверка введения пароля нужна, ее еще не было
 	if(!$_POST['enteredpassword']) 
 	{
-		print "<br><p>Не указан пароль</p>";
+		print "<br><p>".$rowno_password['phrase_'.$lang]."</p>";
 		return FALSE;
 	} 
 	
@@ -32,7 +48,7 @@ function RegMember()
 		// Если есть аккаунт с таким email, то завершаем функцию
 		if(mysqli_num_rows($result) > 0) 
 		{
-			print "<br><p>Аккаунт с указанным логином уже зарегистрирован</p>";
+			print "<br><p>".$rowlogin_exists['phrase_'.$lang]."</p>";
 			return FALSE;
 		}
 	}

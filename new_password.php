@@ -1,6 +1,6 @@
-<?php $title = "Управление делами"; 
+<?php $title = "Artlipat"; 
 require_once "header.php"; 	
-require_once "functions.php";	
+require_once "art_control/functions_register.php";	
 
 $sent_hash = $_GET['hash'];
 
@@ -61,7 +61,7 @@ if(isset($_POST['register']))
                                         <body>
                                         <p>Ваш пароль был изменен. Если это сделали не вы, срочно свяжитесь с владельцем сервиса</p>
 										<p>Ваш логин - адрес этой электронной почты: $bossemail.</p>
-                                        <p>Для исползования сервиса перейдите по <a href='https://artlipat.ru/index.php'>ссылке</a>.</p>
+                                        <p>Для исползования сервиса перейдите по <a href='https://artlipat.online/index.php'>ссылке</a>.</p>
                                         </body>
                                         </html>
                                         ";

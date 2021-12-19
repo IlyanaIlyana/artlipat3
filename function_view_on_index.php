@@ -11,60 +11,21 @@ function ShowFirstPage()
 
 	<!-- container section start -->
 	<section id="container" class="">
-    <!--header start-->
+    <?php
+    PageHeader();
+    
 
-    <header class="header dark-bg">
-      <div class="toggle-nav">
-        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
-      </div>
+    $lang= $_SESSION['language'];	
+    $lang= 'en';	 
 
-      <!--logo start-->
-      <a href="index.php" class="logo"><?php echo $_SESSION ['accountname1'] ?> <span class="lite"><?php echo $_SESSION ['accountname2'] ?></span></a>
-      <!--logo end-->
-      
-      <div class="nav search-row" id="top_menu">
-
-        <!--  search form start -->
-        <!-- <ul class="nav top-menu">
-          <li>
-            <form class="navbar-form">
-              <input class="form-control" placeholder="Search" type="text">
-            </form>
-          </li>
-        </ul> -->
-        <!--  search form end -->
-
-      </div>
-
-      <div class="top-nav notification-row">
-        <!-- notificatoin dropdown start-->
-        <ul class="nav pull-right top-menu">
-
-          <!-- task notificatoin start -->          
-          <!-- task notificatoin end -->
-          
-          <!-- user login dropdown start-->
-          <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <span class="profile-ava">                                
-                    <img alt="photo" src="art_admin/<?php echo $_SESSION ['userphotourl'] ?>">
-                </span>
-                <span class="username"><?php echo $_SESSION ['username'] ?></span>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu extended logout">
-              <div class="log-arrow-up"></div>
-              <li>
-                <a href="art_control/exit.php"><i class="icon_key_alt"></i> Выход из сервиса</a>
-              </li>
-            </ul>
-          </li>
-          <!-- user login dropdown end -->
-        </ul>
-        <!-- notificatoin dropdown end-->
-      </div>
-    </header>
-    <!--header end-->
+    global $rowsearch_case;
+    global $rownew_case;
+    global $rowteam;
+    
+    /*   StartDB(); */	
+    SelectTranslationPagesFrame($lang); //kept in art_control/functions_selecting_language.php
+    /* EndDB(); */
+    ?>
 
     <!--sidebar start-->
     <aside>
@@ -74,12 +35,12 @@ function ShowFirstPage()
           <li class="">
             <a class="" href="page_for_finding_case.php">
                 <i class="icon_genius"></i>
-                <span>Поиск дела</span>
+                <span><?php echo $rowsearch_case['phrase_'.$lang]?></span>
             </a>
           </li>
           <li class="sub-menu">
             <a href="page_for_new_case.php" class="">
-              <i class="icon_document_alt"></i><span>Новое дело</span>
+              <i class="icon_document_alt"></i><span><?php echo $rownew_case['phrase_'.$lang]?></span>
               <!-- <span class="menu-arrow arrow_carrot-right"></span> -->
             </a>
           </li>
@@ -92,7 +53,7 @@ function ShowFirstPage()
           <li class="">
             <a class="" href="art_admin/index.php">
                 <i class="icon_house_alt"></i>
-                <span>Команда</span>
+                <span><?php echo $rowteam['phrase_'.$lang]?></span>
             </a>
           </li> 
           <?php        
@@ -106,6 +67,25 @@ function ShowFirstPage()
     <!--sidebar end-->
 
 	  <!--main content start-->
+    <?php
+      global $rownew_task;
+      global $rowcase_name;
+      global $rowtask;
+      global $rowwhat;
+      global $rowchoose_what;
+      global $rowresponsible;
+      global $rowselect_responsible;
+      global $rowrecord;
+      global $rowmy_tasks;
+      global $rowactulal_tasks;
+      global $rowhide_completed;
+      global $rowplanned;
+      global $rowall_tasks;
+      global $rownew;
+	
+      SelectTranslationPageMainContent($lang); //kept in art_control/functions_selecting_language.php
+
+    ?>
 	  <section id="main-content">
       <section class="wrapper">
         <div class="row">
@@ -123,7 +103,7 @@ function ShowFirstPage()
           <div class="col-lg-4">
             <section class="panel">
               <header class="panel-heading">
-                <h2><strong>Новая задача</strong></h2> 
+                <h2><strong><?php echo $rownew_task['phrase_'.$lang]?></strong></h2> 
               </header>
               <div class="panel-body">
                 <form role="form" action="art_control/processing_add_task_to_case.php" method="post">
@@ -131,15 +111,15 @@ function ShowFirstPage()
                   <div class="form-group">                  
                     <div class="ui-widget">
                     <div  >
-                      <label for="autocomplete">Название дела*</label>  
+                      <label for="autocomplete"><?php echo $rowcase_name['phrase_'.$lang]?>*</label>  
                       <input id="autocomplete" class="form-control" name="casenick" required> 
                     </div> 
                     </div>                   
                   </div>  
 
                   <div class="form-group">
-                  <label for="taskid_on_index">Задача*</label>  
-                  <select id='taskid_on_index' class="form-control" name="taskid" required>  
+                  <label for="taskid"><?php echo $rowtask['phrase_'.$lang]?>*</label>  
+                  <select id='taskid' class="form-control" name="taskid" required>  
                     <option value=""></option> 
                         <?php 
                           PrepareIndependentListsForChoice();  
@@ -155,9 +135,9 @@ function ShowFirstPage()
                   </div>
 
                   <div class="form-group" id="whats" style="display: none">
-                  <label for="what">что</label>   
+                  <label for="what"><?php echo $rowwhat['phrase_'.$lang]?></label>   
                   <select class='form-control' name='what_id' id="what" >
-                      <option value="">- выбери что именно -</option>
+                      <option value="">- <?php echo $rowchoose_what['phrase_'.$lang]?> -</option>
                         <?php
                             while($row = mysqli_fetch_assoc($result_whats))	
                             {	  
@@ -177,9 +157,9 @@ function ShowFirstPage()
                     ?>                  
                   <div class="form-group" id="responsibles">
                   <div class="form-group">
-                  <label for="responsible">Кто делает</label> 
+                  <label for="responsible"><?php echo $rowresponsible['phrase_'.$lang]?></label> 
                   <select class="form-control" name="responsible_id" id="responsible">
-                    <option value="">- кто делает -</option>  
+                    <option value="">- <?php echo $rowselect_responsible['phrase_'.$lang]?> -</option>  
                       <?php    
                         global $result_emplos; 
                         
@@ -199,7 +179,7 @@ function ShowFirstPage()
                     }
                   ?>                
                                     
-                  <button type="submit" class="btn btn-primary">Записать</button>
+                  <button type="submit" class="btn btn-primary"><?php echo $rowrecord['phrase_'.$lang]?></button>
                 </form>
               </div>
             </section>
@@ -215,17 +195,17 @@ function ShowFirstPage()
 
             <section class="panel">
               <header class="panel-heading">
-                Мои задачи                
+                <?php echo $rowmy_tasks['phrase_'.$lang]?>                
               </header>
               <form action="art_control/processing_hide_done.php" method="post">
                 <div class="table-responsive">
                   <table class="table">
                     <thead>
                       <tr>
-                        <th colspan="2">Актуальные задачи                        
+                        <th colspan="2"><?php echo $rowactulal_tasks['phrase_'.$lang]?>                       
                         </th>
                         <th colspan="2">
-                        <input type="submit" value="скрыть сделанные" class="btn-primary" 
+                        <input type="submit" value="<?php echo $rowhide_completed['phrase_'.$lang]?>" class="btn-primary" 
                         <?php if (NoTasksDoneNotHidden()): ?>
                           hidden="true"<?php endif; ?> 
                         id="hidden_button"/>  
@@ -239,7 +219,7 @@ function ShowFirstPage()
                   
                     <thead>
                       <tr>
-                        <th colspan="4">Запланированные задачи</th>                      
+                        <th colspan="4"><?php echo $rowplanned['phrase_'.$lang]?></th>                      
                       </tr>
                     </thead>
                     <tbody>
@@ -259,13 +239,13 @@ function ShowFirstPage()
               <header class="panel-heading tab-bg-primary ">
                 <ul class="nav nav-tabs">
                   <li class="active">
-                    <a data-toggle="tab" href="#total">Все задачи</a>
+                    <a data-toggle="tab" href="#total"><?php echo $rowall_tasks['phrase_'.$lang]?></a>
                   </li>
                   <!--дальше вкладки с отсылками должны выводится согласно списку сотрудников-->
                   <?php ShowTabs() ?>
                   <!--вкладки должны выводится до сюда-->
                   <li class="">
-                    <a  href="art_admin/index.php">новый</a>
+                    <a  href="art_admin/index.php"><?php echo $rownew['phrase_'.$lang]?></a>
                   </li>
                 </ul>
               </header>
@@ -280,9 +260,9 @@ function ShowFirstPage()
                               <table class="table">                          
                                 <thead>
                                   <tr>
-                                    <th colspan="3">Актуальные задачи </th>  
+                                    <th colspan="3"><?php echo $rowactulal_tasks['phrase_'.$lang]?> </th>  
                                     <th colspan="2">
-                                      <input type="submit" value="скрыть сделанные" class="btn-primary" 
+                                      <input type="submit" value="<?php echo $rowhide_completed['phrase_'.$lang]?>" class="btn-primary" 
                                         <?php if (NoTasksDoneNotHidden()): ?>
                                         hidden="true"<?php endif; ?> 
                                         id="hidden_button"/>  
@@ -295,7 +275,7 @@ function ShowFirstPage()
 
                                 <thead>
                                   <tr>
-                                    <th colspan="5">Запланированные задачи</th>                      
+                                    <th colspan="5"><?php echo $rowplanned['phrase_'.$lang]?></th>                      
                                   </tr>
                                 </thead>
                                 <tbody>

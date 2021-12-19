@@ -1,4 +1,4 @@
-<?php session_start(); $title = "Управление делами"; 
+<?php session_start(); $title = "Artlipat"; 
 
 require_once "header.php"; 	
 
@@ -55,7 +55,7 @@ if (isset($_POST['doGo'])) {
                         <title>Подтвердите Email</title>
                         </head>
                         <body>
-                        <p>Чтобы восстановить пароль перейдите по <a href="http://artlipat.ru/new_password.php?hash=' . $hash . '">ссылке</a></p>
+                        <p>Чтобы восстановить пароль перейдите по <a href="http://artlipat.online/new_password.php?hash=' . $hash . '">ссылке</a></p>
                         </body>
                         </html>
                         ';
@@ -99,6 +99,8 @@ if (isset($_POST['doGo'])) {
     <p>Введите ваш email: <input class="form-control" type="email" name="email" placeholder="указанный при регистрации"></p>
     <p><input class="btn btn-primary btn-lg btn-block" type="submit" value="Отправить" name="doGo"></p>
 </form>
+
+<a href="index.php">к сервису</a>
 </div>
 <?php   
 

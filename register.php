@@ -3,12 +3,29 @@ require_once "header.php";
 /* require_once "art_control/functions_register.php";	
 require_once "art_control/functions_selecting_data.php"; */
 require_once "art_control/functions_register.php";	
-require_once "art_control/functions_selecting_data.php";
+require_once "art_control/functions_selecting_language.php";
 
+$lang = $_GET['lang'];
+if (!$lang)
+{
+	$lang= 'en';	
+}
+StartDB();	
+SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_language.php
+EndDB();
+// <?php echo $rowartlipat['phrase_'.$lang] для вставки фразы вставляем ее ключевое значение после row
 
 // Если была нажата кнопка "зарегистрироваться")
 if(isset($_POST['register'])) 
 {
+/* 	$lang = $_GET['lang'];
+	if (!$lang)
+	{
+		$lang= 'en';	
+	}
+	StartDB();	
+	SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_language.php
+	EndDB(); */
 	?>
 	<!--здесь появляется информация о регистрации-->
 	<div class="login-img3-body">
@@ -38,14 +55,14 @@ if(isset($_POST['register']))
 							{
 								// Регистрация пользователя
 								StartDB();
-								$res = RegMember();
+								$res = RegMember(); // in art_control/function_register.php
 								EndDB();								
 								if($res)
 								{
 									ini_set( 'display_errors', 1 );
 									error_reporting( E_ALL );
 
-									$serviceaddress="https://artlipat.ru/artlipat2/index.php";
+									/* $serviceaddress="https://artlipat.ru/artlipat2/index.php"; */
 									$from = "support@artlipat.ru";
 
 									$to1 = "anechke@list.ru";
@@ -57,9 +74,7 @@ if(isset($_POST['register']))
 									mail($to1, $subject1, $message1, $headers1);
 
 									$to = $email;
-									$subject = "ARTLIPAT registration/Регистрация в Артлипат";
-									//$message2 = "Переход $serviceaddress \r\nВаш логин: $email."; не работает
-									// $message2 = "зарегился $serviceaddress \r\nВаш логин: $email.";
+									$subject = $rowregistration_title['phrase_'.$lang];
 									$headers  = "MIME-Version: 1.0\r\n";
                                     $headers .= "Content-type: text/html; charset=utf-8\r\n";
                                     $headers .= "To: <$email>\r\n";
@@ -67,22 +82,22 @@ if(isset($_POST['register']))
                                     $message = "
                                             <html>
                                             <head>
-                                            <title>ARTLIPAT registration/Регистрация в Артлипат</title>
+                                            <title>".$rowregistration_title['phrase_'.$lang]."</title>
                                             </head>
                                             <body>
-                                            <p>Вы успешно зарегистрировались в системе.</p>
-											<p>Ваш логин - адрес этой электронной почты: $email.</p>
-                                            <p>Для использования сервиса перейдите по <a href='https://artlipat.ru/artlipat2/index.php'>ссылке</a>.</p>
+                                            <p>".$rowregister_text['phrase_'.$lang]."</p>
+											<p>".$rowlogin_text['phrase_'.$lang]." $email.</p>
+                                            <p>".$rowto_login_go['phrase_'.$lang]." <a href='https://artlipat.online/index.php'>".$rowlink['phrase_'.$lang]."</a>.</p>
                                             </body>
                                             </html>
                                             ";
 									mail($to, $subject, $message, $headers);
 									
 									?>					
-									<p class="login-img"><i class="icon_lock-open_alt"></i>Артлипат</p>
-									<p>Вы успешно зарегистрировались в системе.</p>
-									<p>Ссылка для входа в сервис направлена на адрес электронной почты, указанный при регистрации (загляни в спам).</p>
-									<p><a href='index.php'>Перейти сейчас к работе в системе</a></p>
+									<p class="login-img"><i class="icon_lock-open_alt"></i><?php echo $rowartlipat['phrase_'.$lang]?></p>
+									<p><?php echo $rowregister_text['phrase_'.$lang]?></p>
+									<p><?php echo $rowlink_text['phrase_'.$lang]?></p>
+									<p><a href='index.php'><?php echo $rowto_login_page['phrase_'.$lang]?></a></p>
 									<?php 
 									
 									exit(); 					
@@ -95,18 +110,18 @@ if(isset($_POST['register']))
 							}
 							else
 							{
-								print "<br><p>Введенные пароли не совпадают</p>";
+								print "<br><p>".$rowmismatch_text['phrase_'.$lang]."</p>";
 							}	
 						}
 
 						else
 						{
-							print("<p>Логин $email не является email-адресом</p>");
+							print("<p>".$rowlogin['phrase_'.$lang]." ". $email." ".$rownot_email_text['phrase_'.$lang]."</p>");
 						}
 					}
 					else
 					{
-						print("<p>Ваша регистрация отнесена к спаму. Обратитесь к владельцу сервиса или повторите вновь</p>");
+						print("<p>".$rowspam_text['phrase_'.$lang]."</p>");
 					}	
 					?>
 
@@ -122,14 +137,14 @@ if ($res !==TRUE)
 {
 	// превращаем статический контент в динамический
 	
-	$lang = $_GET['lang'];
+/* 	$lang = $_GET['lang'];
 	if (!$lang)
 	{
 		$lang= 'en';	
 	}
 	StartDB();	
-	SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_data.php
-	EndDB();
+	SelectTranslationForRegistration($lang); //kept in art_control/functions_selecting_language.php
+	EndDB(); */
 	?>
 
 	<!--это начальное содержимое страницы-->
@@ -179,7 +194,7 @@ if ($res !==TRUE)
 		<div class="container">
 			<div class="login-form " style="margin-top: 50px">
 				<div class="login-wrap">						
-					<p><a href="index.php"><?php echo $rowto_login_page['phrase_'.$lang]?></a></p>
+					<p><a href="index.php"><?php echo $rowto_login['phrase_'.$lang]?></a></p>
 				</div>
 			</div>
 		</div>

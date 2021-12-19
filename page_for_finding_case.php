@@ -1,5 +1,5 @@
 <?php
-session_start(); $title = "Управление делами"; 
+session_start(); $title = "Artlipat"; 
 if(!isset($_SESSION['userid']))
 	{		
    /*  print "пошел вон!! <br>";   */  
@@ -7,6 +7,7 @@ if(!isset($_SESSION['userid']))
     exit();  
   }
 require_once "header.php"; 	
+require_once "art_view/function_page_header.php"; 
 require_once "art_control/functions_selecting_data.php"; 
 require_once "art_view/functions_showing_data.php";
 ?>
@@ -15,30 +16,31 @@ require_once "art_view/functions_showing_data.php";
 	  <!-- container section start -->
 	  <section id="container" class="sidebar-closed">
     <!--header start-->
-
-    <header class="header dark-bg">
-      
-      <!--logo start-->
-      <a href="index.php" class="logo"><?php echo $_SESSION ['accountname1'] ?><span class="lite"><?php echo $_SESSION ['accountname2'] ?></span></a>
-      <!--logo end-->      
-
-      <div class="top-nav notification-row">
-        <!-- notificatoin dropdown start-->
-        <span class="profile-ava">
-        <a href="index.php" ><img alt="photo" src="art_admin/<?php echo $_SESSION ['userphotourl'] ?>"></a>
-        </span>
-        
-        <!-- notificatoin dropdown end-->
-      </div>
-    </header>
+    <?php
+     PageHeaderSecondary();
+    ?>
     <!--header end-->    
 
 	<!--main content start-->
+  <?php
+      $lang= $_SESSION['language'];	
+      $lang= 'en';
+    
+      global $db;
+
+      global $rowcases;
+      global $rowsearch;
+      global $rowsearched;
+
+      StartDB();
+      SelectTranslationPageMainContent($lang); //kept in art_control/functions_selecting_language.php
+      EndDB();
+    ?>
 	<section id="main-content">
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><a href="index.php" ><i class="fa fa fa-bars"></i> </a>Список всех дел</h3>
+            <h3 class="page-header"><a href="index.php" ><i class="fa fa fa-bars"></i> </a><?php echo $rowcases['phrase_'.$lang]?></h3>
             <!-- <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
               <li><i class="fa fa-bars"></i>Pages</li>
@@ -50,20 +52,20 @@ require_once "art_view/functions_showing_data.php";
           <div class="col-sm-6">
             <section class="panel">
               <header class="panel-heading">
-                Найти:
+              <?php echo $rowsearch['phrase_'.$lang]?>:
               </header>
-              <p><input id="searchtag" size="20" type="text" value="" class="form-control" placeholder="начните вводить референс для поиска"></p>
+              <p><input id="searchtag" size="20" type="text" value="" class="form-control" placeholder="<?php echo $rowtype_ref['phrase_'.$lang]?>"></p>
             </section>
             <section class="panel">
               <header class="panel-heading">
-                Найдено дел:
+              <?php echo $rowsearched['phrase_'.$lang]?>:
               </header>
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>наш референс</th>
-                    <th>референс клиента</th>
-                    <th>референс в ведомстве</th>
+                    <th><?php echo $rowour_ref['phrase_'.$lang]?></th>
+                    <th><?php echo $rowclient_ref['phrase_'.$lang]?></th>
+                    <th><?php echo $rowpatent_office_ref['phrase_'.$lang]?></th>
                   </tr>
                 </thead>
                 <tbody id="searchresult">
