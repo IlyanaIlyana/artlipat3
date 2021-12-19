@@ -1,5 +1,5 @@
 <?php
-session_start(); $title = "Управление делами"; 
+session_start(); $title = "Artlipat"; 
 
 if(!isset($_SESSION['userid']))
 	{		
@@ -8,12 +8,14 @@ if(!isset($_SESSION['userid']))
     exit();  
   }
 
-require_once "art_control/start_mysql.php"; 	
+require_once "art_control/start_mysql.php"; 
+require_once "art_view/function_page_header.php"; 	
 require_once "art_control/functions_selecting_data.php"; 
 require_once "art_view/functions_showing_data.php"; 
 
 $id_task_case = $_GET['sent_task_case_id']; // id записи задача-дело
 $id_case = $_GET['sent_case_id']; // id дела
+$not_closed = $_GET['not_closed'];
 $taskstatus = $_GET['sent_taskstatus']; // 
 $id_task = $_GET['sent_task_id']; // id задачи
 $case_ref = $_GET['sent_our_case_ref']; // референс дела
@@ -40,30 +42,42 @@ EndDB();
 	<!-- container section start -->
 	<section id="container" class="sidebar-closed">
     <!--header start-->
-    <header class="header dark-bg">
-      <!--logo start-->
-      <a href="index.php" class="logo"><?php echo $_SESSION ['accountname1'] ?> <span class="lite"><?php echo $_SESSION ['accountname2'] ?></span></a>
-      <!--logo end--> 
-      <div class="top-nav notification-row">
-        <!-- notificatoin dropdown start-->
-        <span class="profile-ava">
-        <a href="index.php" ><img alt="photo" src="art_admin/<?php echo $_SESSION ['userphotourl'] ?>"></a>
-        </span>
-        <!-- notificatoin dropdown end-->
-      </div>
-    </header>
+    <?php
+     PageHeaderSecondary();
+    ?>
     <!--header end-->    
 
 	  <!--main content start-->
+    <?php
+      $lang= $_SESSION['language'];	
+      $lang= 'en';
+    
+      global $db;
+
+      global $rowedit_task_card;
+      global $rowhome;
+      global $rowcase_card;
+      global $rowtask_data;
+      global $rowcase;
+      global $rowcreated_by;
+      global $rowcreated_on;      
+      global $rowsave_amendment;
+      global $rowdelete_task;
+
+      StartDB();
+      SelectTranslationPageMainContent($lang); //kept in art_control/functions_selecting_language.php
+      EndDB();
+    ?>
 	  <section id="main-content">
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><a href="index.php" ><i class="fa fa fa-square-o"></i></a>Карточка задачи</h3>
+            <h3 class="page-header"><a href="index.php" >
+              <i class="fa fa fa-square-o"></i></a><?php echo $rowedit_task_card['phrase_'.$lang]?></h3>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="index.php">Главная</a></li>
-              <li><i class="fa fa-bars"><a href="page_for_case_card.php?sent_case_id=<?php echo $id_case?>"></i>Карточка дела</a></li>
-              <li><i class="fa fa-square-o"></i>Карточка задачи</li>
+              <li><i class="fa fa-home"></i><a href="index.php"><?php echo $rowhome['phrase_'.$lang]?></a></li>
+              <li><i class="fa fa-bars"><a href="page_for_case_card.php?sent_case_id=<?php echo $id_case?>"></i><?php echo $rowcase_card['phrase_'.$lang]?></a></li>
+              <li><i class="fa fa-square-o"></i><?php echo $rowedit_task_card['phrase_'.$lang]?></li>
             </ol>
           </div>
         </div> <!-- line 5: row-->
@@ -72,7 +86,7 @@ EndDB();
           <div class="col-md-4 portlets">            
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h2><strong>Детали задачи</strong></h2>
+                <h2><strong><?php echo $rowtask_data['phrase_'.$lang]?></strong></h2>
                 <div class="panel-actions">
                   <!-- <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
                   <a href="#" class="wclose"><i class="fa fa-times"></i></a> -->
@@ -95,12 +109,16 @@ EndDB();
                         ){$hidden="";}
                       else {$hidden='style="display: none"';}
                       ?>              
-                      <p class="col-lg-9">Дело: <?php echo $case_ref?></p>
-                      <p class="col-lg-9">Задача: <?php echo $row_casetask['task_name'].$row_casetask['what']?></p>
+                      <p class="col-lg-9"><?php echo $rowcase['phrase_'.$lang]?>: <?php echo $case_ref?>
+                      <?php if ($not_closed==0):?>
+                        <span style='color:red'>(<?php echo $rowcase_closed['phrase_'.$lang]?>)</span>
+                        <?php endif; ?>
+                      </p>                      
+                      <p class="col-lg-9"><?php echo $rowtask['phrase_'.$lang]?>: <?php echo $row_casetask['task_name'].$row_casetask['what']?></p>
                       </p> 
                     </div> 
                       <div class="form-group">
-                        <label class="control-label col-lg-3" for="tags">Кто делает</label>
+                        <label class="control-label col-lg-3" for="tags"><?php echo $rowresponsible['phrase_'.$lang]?></label>
                         <div class="col-lg-9">
                           <select class='form-control' name='responsible_id'>
                             <?php
@@ -120,13 +138,13 @@ EndDB();
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-lg-3" for="tags">Дата старта</label>
+                        <label class="control-label col-lg-3" for="tags"><?php echo $rowstart['phrase_'.$lang]?></label>
                         <div class="col-lg-9">
                           <input type="date" class="form-control" name="task_start_date"  value="<?php echo $row_casetask['task_start_term']?>">
                         </div>
                       </div>
                         <div class="form-group">
-                          <label class="control-label col-lg-3" for="tags">Дата окончания</label>
+                          <label class="control-label col-lg-3" for="tags"><?php echo $rowend['phrase_'.$lang]?></label>
                           <div class="col-lg-9">
                             <input type="date" class="form-control" name="task_end_date"  value="<?php echo $row_casetask['task_end_term']?>">
                           </div>
@@ -154,13 +172,13 @@ EndDB();
                           </div>
                         </div>
                       <div class="form-group">
-                        <label class="control-label col-lg-3" for="tags">Кто поставил</label>
+                        <label class="control-label col-lg-3" for="tags"><?php echo $rowcreated_by['phrase_'.$lang]?></label>
                         <div class="col-lg-9">
                           <input type="text" class="form-control" name=""  value="<?php echo $row_casetask['employee_nickname']?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-lg-3" for="tags">Когда поставил</label>
+                        <label class="control-label col-lg-3" for="tags"><?php echo $rowcreated_on['phrase_'.$lang]?></label>
                         <div class="col-lg-9">
                           <input type="text" class="form-control" name="" value="<?php echo $row_casetask['date_of_record']?>">
                         </div>
@@ -175,10 +193,10 @@ EndDB();
                         <div class="col-lg-offset-2 col-lg-9">
                         
                         <?php if ($taskstatus==1){?>
-                          <button type="submit" class="btn btn-primary">Сохранить исправления</button>
+                          <button type="submit" class="btn btn-primary"><?php echo $rowsave_amendment['phrase_'.$lang]?></button>
                           <?php }?> 
 
-                          <a type="button" class="btn btn-danger" href="art_control/deleting_task.php?task_case_id=<?php echo $id_task_case?>&case_id=<?php echo $id_case?>">Удалить вообще эту задачу</a>
+                          <a type="button" class="btn btn-danger" href="art_control/deleting_task.php?task_case_id=<?php echo $id_task_case?>&case_id=<?php echo $id_case?>"><?php echo $rowdelete_task['phrase_'.$lang]?></a>
                           
                           </form>
                         </div>
