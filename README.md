@@ -12,8 +12,8 @@ My first version included process-oriented approach which I escaped in the secon
 This, third, version requiers user's terms only (like calendar). 
 
 I develop my project under the slogan: 
->Don't make me think!.
- 
+>Don't make me think!
+
 And may be some further clarification of the interface can come up in future.  
 
 The only textual input in Artlipat is the name of the case to work on. Tasks to-do are to be chosen from a pre-determined list. Two these input fields can be found on the main page.   
@@ -26,11 +26,11 @@ In this version of the service the following tasks were solved:
 
 - using handmade capture to protect bot registration (from which the second version suffered); 
 
-- using checkboxes for completed tasks (visually like Trello or Wunderlist); checking checkbox results in updating db and crossing out the task name, both with [jQuery functions] (https://api.jquery.com/jQuery.post/); 
+- using checkboxes for completed tasks (visually like Trello or Wunderlist); checking checkbox results in updating db and crossing out the task name, both with [jQuery functions](https://api.jquery.com/jQuery.post/); 
 
-- since 60 tasks are in the pre-determined list, to facilitate the search of the task in the list I used dinamic search with jQuery plugin [Chosen] (https://harvesthq.github.io/chosen/); 
+- since 60 tasks are in the pre-determined list, to facilitate the search of the task in the list I used dinamic search with jQuery plugin [Chosen](https://harvesthq.github.io/chosen/); 
 
-- since input of the case name envisages both new case and already existed case name, I used [jQuery Autocomplete function] (https://jqueryui.com/autocomplete/#remote); 
+- since input of the case name envisages both new case and already existed case name, I used [jQuery Autocomplete function](https://jqueryui.com/autocomplete/#remote); 
 
 - the service is made bilingual; for this purpose I had to solve two tasks: how to change "static content" (titles on html pages) and how to use appropriate pre-determined list of e.g.tasks from db. For "statis content" I used a special "translation" table with column names "title_lung" where lung-part is amended by php. For predetermined lists I chosed to use different table with names table_lung and identical column names; at the moment only two languages are supported (en and ru), however theoretically not only langiuages but contries should be separated and lists of different content might have to be used for different countires;
 
@@ -59,9 +59,9 @@ As for php, the new feature for me were:
 
 in jQuery the new feature for me were: 
 
-- [Chosen] (https://harvesthq.github.io/chosen/); 
+- [Chosen](https://harvesthq.github.io/chosen/); 
 
-- [Autocomplete] (https://jqueryui.com/autocomplete/#remote)(which was a real headache); 
+- [Autocomplete](https://jqueryui.com/autocomplete/#remote)(which was a real headache); 
 
 My plan is to add "reports" to the service. Firstly, the hours and money spent to each task. But the service must still be simple.
 
