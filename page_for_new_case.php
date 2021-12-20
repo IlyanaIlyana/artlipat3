@@ -95,7 +95,7 @@ EndDB();
                 <div class="form quick-post">
                   <!-- Case data entering by selection-->
                   
-                  <form class="form-horizontal" action="processing_add_new_case.php" method="post">
+                  <form class="form-horizontal" action="art_control/processing_add_new_case.php" method="post">
                       <!-- IP Matter -->
                       <div class="form-group">
                         <label class="control-label col-lg-2"><?php echo $rowip_subject['phrase_'.$lang]?></label>

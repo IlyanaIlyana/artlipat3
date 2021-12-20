@@ -47,7 +47,7 @@ require_once "start_mysql.php";
     //print $last_case_id."last_case_id<br>";
     mysqli_free_result($result);
     
-    header("Refresh: 1; URL = page_for_case_card.php?sent_case_id=$last_case_id");
+    header("Refresh: 1; URL = ../page_for_case_card.php?sent_case_id=$last_case_id");
    /*  header("Location: URL = page_for_case_card.php?sent_case_id=$last_case_id"); */
 	
 	EndDB();
