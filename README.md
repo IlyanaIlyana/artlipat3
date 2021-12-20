@@ -12,7 +12,8 @@ My first version included process-oriented approach which I escaped in the secon
 This, third, version requiers user's terms only (like calendar). 
 
 I develop my project under the slogan: 
->Don't make me think!. 
+>Don't make me think!.
+ 
 And may be some further clarification of the interface can come up in future.  
 
 The only textual input in Artlipat is the name of the case to work on. Tasks to-do are to be chosen from a pre-determined list. Two these input fields can be found on the main page.   
@@ -42,18 +43,19 @@ As for php, the new feature for me were:
 - using php if condition in html tags to manipulate their style property and checkbox status: 
 
 ```<div class="panel panel-default"
-            <?php if ($row_casedata['not_closed_case']==0):?>
-                style='color:red'
-                <?php endif; ?>>
+        <?php if ($row_casedata['not_closed_case']==0):?>
+            style='color:red'
+         <?php endif; ?>
+     >
 ``` 
 
 - passing array through method POST (to have a list of checked checkboxes) 
 ```
-<input class="active" <?php if ($row2['task_status'] == 0): ?>
-                        checked="checked"<?php endif; ?> 
-                        name="checkbox_done[]"
-                        value="<?php echo $row2['id_task_case']?>" type="checkbox" />
-                        ```
+<input class="active" 
+    <?php if ($row2['task_status'] == 0): ?>checked="checked"<?php endif; ?> 
+    name="checkbox_done[]"
+    value="<?php echo $row2['id_task_case']?>" type="checkbox" />
+```
 
 in jQuery the new feature for me were: 
 
