@@ -10,7 +10,8 @@ exit();
 //print_r ($_SESSION);
 
 require_once "../header.php"; 
-require_once "main.php"; 	
+require_once "main.php"; 
+require_once "../art_control/functions_selecting_language.php";	
 ?>
 <!--header start-->
 
@@ -32,11 +33,19 @@ require_once "main.php";
     <!--header end-->  
 
     <!--main content start-->
+    <?php
+      $lang= $_SESSION['language'];	
+      $lang= 'en';
+
+      StartDB();
+      SelectTranslationPageMainContent($lang); //kept in art_control/functions_selecting_language.php
+      EndDB();
+    ?>
 	  <section id="main-content">
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"> Технические детали</h3>  
+            <h3 class="page-header"> <?php echo $rowteam['phrase_'.$lang]?></h3>  
                       
           </div>
         </div> <!-- line 5: row-->
@@ -45,7 +54,7 @@ require_once "main.php";
           <div class="col-sm-6">
             <section class="panel">
               <header class="panel-heading">
-              Список сотрудников
+              <?php echo $rowlist_of_persons['phrase_'.$lang]?>
               </header>                   
                 <?php
                 StartDB();						
@@ -54,18 +63,18 @@ require_once "main.php";
             </section>
             <section class="panel">
               <header class="panel-heading">
-              Добавить нового сотрудника
+              <?php echo $rowadd_new_person['phrase_'.$lang]?>
               </header>                   
               <div class="panel-body">
                 <form action="processing_reg_user.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input name="username" type="text" class="form-control" placeholder="Публичное имя*" required>
+                    <input name="username" type="text" class="form-control" placeholder="<?php echo $rowperson_name['phrase_'.$lang]?>*" required>
                 </div>
                 <div class="form-group">
-                    <p class="help-block">фото в профиле (jpg):</p>  
+                    <p class="help-block"><?php echo $rowphoto_in_profile['phrase_'.$lang]?> (jpg):</p>  
                     <input class="btn btn-primary" type="file" name="uploadfile">
                 </div>
-                <button name="register" type="submit" class="btn btn-primary">Добавить сотрудника в базу</button>
+                <button name="register" type="submit" class="btn btn-primary"><?php echo $rowadd_new_person['phrase_'.$lang]?></button>
                 </form>
              </div>
             </section>
@@ -73,7 +82,7 @@ require_once "main.php";
           <div class="col-sm-6">
             <section class="panel">
               <header class="panel-heading">
-              Изменить название фирмы
+              <?php echo $rowchange_company_name['phrase_'.$lang]?>
               </header>                   
                 <?php
                 StartDB();						

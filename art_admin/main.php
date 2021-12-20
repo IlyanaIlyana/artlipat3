@@ -1,8 +1,22 @@
 <?php
 
+require_once "../art_control/functions_selecting_language.php";	
+
 function ShowUsers()
 {
 	global $db;
+
+    global $rowperson_name;
+	global $rowperson_login;
+	global $rowperson_level;
+    global $rowperson_photo;
+    global $rowperson_status;   
+
+
+    $lang= $_SESSION['language'];	
+    $lang= 'en';
+    SelectTranslationPageMainContent($lang); //kept in art_control/functions_selecting_language.php
+
 	$SQL = "SELECT * FROM employees JOIN employee_status es ON es.id_status = employees.status_id 
     WHERE `account_id`=".$_SESSION['useraccountid'];
     //print "вот так выглядит запрос: <br>".$SQL."<br>";
@@ -13,11 +27,11 @@ function ShowUsers()
                 <table class="table">
                 <thead>
                   <tr>
-                    <th>Имя</th>
-                    <th>Логин</th>
-                    <th>Доступ</th>
-                    <th>Фото</th>
-                    <th>Статус</th>
+                    <th><?php echo $rowperson_name['phrase_'.$lang]?></th>
+                    <th><?php echo $rowperson_login['phrase_'.$lang]?></th>
+                    <th><?php echo $rowperson_level['phrase_'.$lang]?></th>
+                    <th><?php echo $rowperson_photo['phrase_'.$lang]?></th>
+                    <th><?php echo $rowperson_status['phrase_'.$lang]?></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -50,10 +64,6 @@ function ShowUsers()
 	}
 	 
 }	
-
-
-
-
 
 function ImageUpload() 
 
@@ -136,6 +146,16 @@ function ShowCompanyName()
 	global $db;
     $account_id = $_SESSION['useraccountid'];
 
+    global $rowname_first_part;
+	global $rowname_second_part;
+	global $rownew_name_text;
+    global $rowsave_amendment;   
+
+
+    $lang= $_SESSION['language'];	
+    $lang= 'en';
+    SelectTranslationPageMainContent($lang); //kept in art_control/functions_selecting_language.php
+    
 	$SQL = "SELECT * FROM accounts
 	WHERE `id_account`=".$account_id;
 
@@ -153,12 +173,12 @@ function ShowCompanyName()
 	<div class="panel-body">
 	<form action="processing_update_company_name.php" method="post"> 
 	<table>
-    <tr><td>первая часть имени</td><td><input class='form-control' name='company_name1' type='text' value='<?php echo $row['company_name1']?>'></td></tr>
-	<tr><td>вторая часть имени</td><td><input class='form-control' name='company_name2' type='text' value='<?php echo $row['company_name2']?>'></td></tr>
-    <tr><td colspan=2><input  class='btn btn-primary' type='submit' value='Сохранить изменение'></td></tr>
+    <tr><td><?php echo $rowname_first_part['phrase_'.$lang]?></td><td><input class='form-control' name='company_name1' type='text' value='<?php echo $row['company_name1']?>'></td></tr>
+	<tr><td><?php echo $rowname_second_part['phrase_'.$lang]?></td><td><input class='form-control' name='company_name2' type='text' value='<?php echo $row['company_name2']?>'></td></tr>
+    <tr><td colspan=2><input  class='btn btn-primary' type='submit' value='<?php echo $rowsave_amendment['phrase_'.$lang]?>'></td></tr>
     </table>
 	</form>
-    <p>*Название на странице изменится после повторного входа в аккаунт</p>
+    <p>*<?php echo $rownew_name_text['phrase_'.$lang]?></p>
     </div>
 <?php    
 }	

@@ -1,6 +1,16 @@
 <?php $title = "Artlipat"; 
 require_once "header.php"; 	
 require_once "art_control/functions_register.php";	
+require_once "art_control/functions_selecting_language.php";
+
+$lang = $_GET['lang'];
+if (!$lang)
+{
+	$lang= 'en';	
+}
+StartDB();	
+SelectTranslationRestoringPassword($lang); //kept in art_control/functions_selecting_language.php
+EndDB();
 
 $sent_hash = $_GET['hash'];
 
@@ -21,8 +31,8 @@ if(isset($_POST['register']))
 					<?php				
 						if(!$_POST['enteredpassword']) 
                         {
-                            print "<br><p>Не указан пароль</p>";
-                            print '<p>Чтобы восстановить пароль снова перейдите по ссылке в электронной почте</a></p>';
+                            print "<br><p>".$rowno_password_for_pass['phrase_'.$lang]."</p>";
+                            print '<p>'.$rowpass_prompt_message["phrase_".$lang].'</a></p>';
                             return FALSE;
                             exit();
                         }
@@ -48,7 +58,7 @@ if(isset($_POST['register']))
 								mail($to1, $subject1, $message1, $headers1);
 
 								$to = $bossemail;
-								$subject = "Смена пароля в Артлипат";
+								$subject = $rowpass_change['phrase_'.$lang];
 								$headers  = "MIME-Version: 1.0\r\n";
                                 $headers .= "Content-type: text/html; charset=utf-8\r\n";
                                 $headers .= "To: <$bossemail>\r\n";
@@ -56,22 +66,22 @@ if(isset($_POST['register']))
                                 $message = "
                                         <html>
                                         <head>
-                                        <title>Смена пароля в Артлипат</title>
+                                        <title>".$rowpass_change['phrase_'.$lang]."</title>
                                         </head>
                                         <body>
-                                        <p>Ваш пароль был изменен. Если это сделали не вы, срочно свяжитесь с владельцем сервиса</p>
-										<p>Ваш логин - адрес этой электронной почты: $bossemail.</p>
-                                        <p>Для исползования сервиса перейдите по <a href='https://artlipat.online/index.php'>ссылке</a>.</p>
+                                        <p>".$rowpass_notice['phrase_'.$lang]."</p>
+										<p>".$rowlogin_notice['phrase_'.$lang].": $bossemail.</p>
+                                        <p>".$rowto_login_after_pass['phrase_'.$lang]." <a href='https://artlipat.online/index.php'>".$rowhere['phrase_'.$lang]."</a>.</p>
                                         </body>
                                         </html>
                                         ";
 								mail($to, $subject, $message, $headers);
 									
 								?>					
-								<p class="login-img"><i class="icon_lock-open_alt"></i>Артлипат</p>
-								<p>Ваш пароль был изменен.</p>
-								<p>Уведомление отправлено на адрес электронной почты, указанный при регистрации (загляни в спам).</p>
-								<p><a href='index.php'>Перейти сейчас к работе в системе</a></p>
+								<p class="login-img"><i class="icon_lock-open_alt"></i><?php echo $rowartlipat_2['phrase_'.$lang]?></p>
+								<p><?php echo $rowpass_changed['phrase_'.$lang]?></p>
+								<p><?php echo $rowpass_sent_to['phrase_'.$lang]?></p>
+								<p><a href='index.php'><?php echo $rowto_login_after_pass_2['phrase_'.$lang]?></a></p>
 								<?php 
 									
 								exit(); 					
@@ -85,8 +95,8 @@ if(isset($_POST['register']))
 						}
 						else
 						{
-							print "<br><p>Введенные пароли не совпадают</p>";
-                            print '<p>Что бы восстановить пароль снова перейдите по ссылке в эелектронной почте</a></p>';
+							print "<br><p>".$rowpasswords_mismatch_2['phrase_'.$lang]."</p>";
+                            print '<p>'.$rowpass_prompt_message["phrase_".$lang].'</a></p>';
 							exit();
                         }	
 					?>
@@ -104,17 +114,17 @@ if(isset($_POST['register']))
 	<div class="container">
 		<form class="login-form" action="new_password.php" method="post">
 			<div class="login-wrap">
-				<p class="login-img"><i class="icon_lock_alt"></i>Артлипат</p>
+				<p class="login-img"><i class="icon_lock_alt"></i><?php echo $rowartlipat_2['phrase_'.$lang]?></p>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="icon_key_alt"></i></span>
-					<input name="enteredpassword" type="password" class="form-control" placeholder="Новый пароль">
+					<input name="enteredpassword" type="password" class="form-control" placeholder="<?php echo $rownew_password['phrase_'.$lang]?>">
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="icon_key_alt"></i></span>
-					<input name="password_again" type="password" class="form-control" placeholder="Повторите пароль">
+					<input name="password_again" type="password" class="form-control" placeholder="<?php echo $rowrepeat_new_password['phrase_'.$lang]?>">
 				</div> 
                 <input type= "hidden" name="hash_email_in_question" value = "<?php echo $sent_hash?>">
-				<input name="register"  type="submit" class="btn btn-primary btn-lg btn-block" value="Записать новый пароль для босса">     					
+				<input name="register"  type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $rowremember_new_password['phrase_'.$lang]?>">     					
 			</div>
 		</form>  
 	</div>

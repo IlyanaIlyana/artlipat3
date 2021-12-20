@@ -1,6 +1,16 @@
 <?php session_start(); $title = "Artlipat"; 
 
-require_once "header.php"; 	
+require_once "header.php";
+require_once "art_control/functions_selecting_language.php";
+
+$lang = $_GET['lang'];
+if (!$lang)
+{
+	$lang= 'en';	
+}
+StartDB();	
+SelectTranslationRestoringPassword($lang); //kept in art_control/functions_selecting_language.php
+EndDB(); 	
 
 ?>
 <div class="page-404">
@@ -52,23 +62,23 @@ if (isset($_POST['doGo'])) {
                 $message = '
                         <html>
                         <head>
-                        <title>Подтвердите Email</title>
+                        <title>'.$rowconfirm_email["phrase_".$lang].'</title>
                         </head>
                         <body>
-                        <p>Чтобы восстановить пароль перейдите по <a href="http://artlipat.online/new_password.php?hash=' . $hash . '">ссылке</a></p>
+                        <p>'.$rowpassword_ref["phrase_".$lang].' <a href="http://artlipat.online/new_password.php?hash=' . $hash . '">'.$rowpass_link["phrase_".$lang].'</a></p>
                         </body>
                         </html>
                         ';
         
-                if (mail($email, "Восстановление пароля Артлипат через email", $message, $headers)) {
+                if (mail($email, "Восстановление пароля Артлипат через email/".$rowpassword_recover['phrase_'.$lang], $message, $headers)) {
                     ?>
-                        <p>Ссылка для восстановления пароля отправлена на вашу почту </p>
+                        <p><?php echo $rowpassword_ref_sent['phrase_'.$lang]?> </p>
                     </div>
                     <?php  
                     
                 } else {
                     ?>
-                        <p>Произошла какая-то ошибка, письмо не отправилось</p>
+                        <p><?php echo $rowpassword_error_message['phrase_'.$lang]?></p>
                     </div>
                     <?php  
                 }
@@ -76,7 +86,7 @@ if (isset($_POST['doGo'])) {
             }
             else {
                 ?>
-                    <p>Не существует такого аккаунта</p>
+                    <p><?php echo $rowno_login_for_pass['phrase_'.$lang]?></p>
                 <?php  
             }
         }
@@ -89,18 +99,18 @@ if (isset($_POST['doGo'])) {
         
     } else {
         ?>
-            <p>Вы не ввели Email</p>
+            <p><?php echo $rowno_email_for_pass['phrase_'.$lang]?></p>
         <?php 
     }
 }
 
 ?>   
 <form class="login-form" action="page_for_restoring_password.php" method="post">
-    <p>Введите ваш email: <input class="form-control" type="email" name="email" placeholder="указанный при регистрации"></p>
-    <p><input class="btn btn-primary btn-lg btn-block" type="submit" value="Отправить" name="doGo"></p>
+    <p><?php echo $rowenter_email['phrase_'.$lang]?>: <input class="form-control" type="email" name="email" placeholder="<?php echo $rowreg_email['phrase_'.$lang]?>"></p>
+    <p><input class="btn btn-primary btn-lg btn-block" type="submit" value="<?php echo $rowsend_to_email['phrase_'.$lang]?>" name="doGo"></p>
 </form>
 
-<a href="index.php">к сервису</a>
+<a href="index.php"><?php echo $rowto_login['phrase_'.$lang]?></a>
 </div>
 <?php   
 

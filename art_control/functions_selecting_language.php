@@ -1,20 +1,4 @@
 <?php
-/* 
-function SelectTranslationPagesFrame($lang){}
-global $db;
-
-объявление переменной в функции:
-global $rowxxx;
-
-текст-заместитель:
-внутри php: ".$rowxxx['phrase_'.$lang]."
-внутри html: <?php echo $rowxxx['phrase_'.$lang]?>
-
-запрос:
-$SQLxxx = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'xxx'";
-$rowxxx = mysqli_fetch_assoc(mysqli_query($db, $SQLxxx)); 
-}
-*/
 
 function SelectTranslationForRegistration($lang)
 {
@@ -44,7 +28,24 @@ function SelectTranslationForRegistration($lang)
 	global $rowno_login;
 	global $rowno_password;
 	global $rowlogin_exists;
+	
+/* 
+function SelectTranslationPagesFrame($lang){}
+global $db;
 
+объявление переменной в функции:
+global $rowxxx;
+
+текст-заместитель:
+внутри php: ".$rowxxx['phrase_'.$lang]."
+'.$rowxxx["phrase_".$lang].'
+внутри html: <?php echo $rowxxx['phrase_'.$lang]?>
+
+запрос:
+$SQLxxx = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'xxx'";
+$rowxxx = mysqli_fetch_assoc(mysqli_query($db, $SQLxxx)); 
+}
+*/
     $SQLartlipat = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'artlipat'";
 	
 	if (!$resultartlipat = mysqli_query($db, $SQLartlipat)) 
@@ -124,7 +125,7 @@ function SelectTranslationForRegistration($lang)
 	$rowno_password = mysqli_fetch_assoc(mysqli_query($db, $SQLno_password));
 
 	$SQLlogin_exists = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'login_exists'";
-	$rowlogin_exists = mysqli_fetch_assoc(mysqli_query($db, $SQLlogin_exists));
+	$rowlogin_exists = mysqli_fetch_assoc(mysqli_query($db, $SQLlogin_exists));	
 
 }
 
@@ -195,6 +196,36 @@ function SelectTranslationRestoringPassword($lang)
     global $rowartlipat;
 
 
+	global $rowenter_email;
+	global $rowreg_email;
+	global $rowsend_to_email;
+	global $rowno_email_for_pass;
+	global $rowno_login_for_pass;
+	global $rowpassword_error_message;
+	global $rowpassword_ref_sent;
+	global $rowpassword_recover;
+	global $rowpassword_ref;
+	global $rowpass_link;
+	global $rowconfirm_email;
+
+	global $rowno_password_for_pass;
+	global $rowpass_prompt_message;
+	global $rowpass_change;
+	global $rowpass_notice;
+	global $rowlogin_notice;
+	global $rowto_login_after_pass;
+	global $rowhere;
+	global $rowartlipat_2;
+	global $rowpass_changed;
+	global $rowpass_sent_to;
+	global $rowto_login_after_pass_2;
+	global $rowpasswords_mismatch_2;
+	global $rownew_password;
+	global $rowrepeat_new_password;
+	global $rowremember_new_password;
+
+
+
     $SQLartlipat = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'artlipat'";
 	
 	if (!$resultartlipat = mysqli_query($db, $SQLartlipat)) 
@@ -208,9 +239,84 @@ function SelectTranslationRestoringPassword($lang)
 	}
 	$rowartlipat = mysqli_fetch_assoc($resultartlipat);
 
-	$SQLlogin = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'login'";
-	$rowlogin = mysqli_fetch_assoc(mysqli_query($db, $SQLlogin));
 
+$SQLenter_email = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'enter_email'";
+$rowenter_email = mysqli_fetch_assoc(mysqli_query($db, $SQLenter_email)); 
+
+$SQLreg_email = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'reg_email'";
+$rowreg_email = mysqli_fetch_assoc(mysqli_query($db, $SQLreg_email));
+
+$SQLsend_to_email = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'send_to_email'";
+$rowsend_to_email = mysqli_fetch_assoc(mysqli_query($db, $SQLsend_to_email));
+
+$SQLno_email_for_pass = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'no_email_for_pass'";
+$rowno_email_for_pass = mysqli_fetch_assoc(mysqli_query($db, $SQLno_email_for_pass)); 
+
+$SQLno_login_for_pass = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'no_login_for_pass'";
+$rowno_login_for_pass = mysqli_fetch_assoc(mysqli_query($db, $SQLno_login_for_pass));
+
+$SQLpassword_error_message = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'password_error_message'";
+$rowpassword_error_message = mysqli_fetch_assoc(mysqli_query($db, $SQLpassword_error_message)); 
+
+$SQLpassword_ref_sent = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'password_ref_sent'";
+$rowpassword_ref_sent = mysqli_fetch_assoc(mysqli_query($db, $SQLpassword_ref_sent)); 
+
+$SQLpassword_recover = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'password_recover'";
+$rowpassword_recover = mysqli_fetch_assoc(mysqli_query($db, $SQLpassword_recover));
+
+$SQLpassword_ref = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'password_ref'";
+$rowpassword_ref = mysqli_fetch_assoc(mysqli_query($db, $SQLpassword_ref)); 
+
+$SQLpass_link = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'pass_link'";
+$rowpass_link = mysqli_fetch_assoc(mysqli_query($db, $SQLpass_link)); 
+
+$SQLconfirm_email = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'confirm_email'";
+$rowconfirm_email = mysqli_fetch_assoc(mysqli_query($db, $SQLconfirm_email)); 
+
+$SQLno_password_for_pass = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'no_password_for_pass'";
+$rowno_password_for_pass = mysqli_fetch_assoc(mysqli_query($db, $SQLno_password_for_pass)); 
+
+$SQLpass_prompt_message = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'pass_prompt_message'";
+$rowpass_prompt_message = mysqli_fetch_assoc(mysqli_query($db, $SQLpass_prompt_message)); 
+
+$SQLpass_change = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'pass_change'";
+$rowpass_change = mysqli_fetch_assoc(mysqli_query($db, $SQLpass_change));
+
+$SQLpass_notice = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'pass_notice'";
+$rowpass_notice = mysqli_fetch_assoc(mysqli_query($db, $SQLpass_notice)); 
+
+$SQLlogin_notice = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'login_notice'";
+$rowlogin_notice = mysqli_fetch_assoc(mysqli_query($db, $SQLlogin_notice)); 
+
+$SQLto_login_after_pass = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'to_login_after_pass'";
+$rowto_login_after_pass = mysqli_fetch_assoc(mysqli_query($db, $SQLto_login_after_pass));
+
+$SQLhere = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'here'";
+$rowhere = mysqli_fetch_assoc(mysqli_query($db, $SQLhere));
+
+$SQLartlipat_2 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'artlipat_2'";
+$rowartlipat_2 = mysqli_fetch_assoc(mysqli_query($db, $SQLartlipat_2)); 
+
+$SQLpass_changed = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'pass_changed'";
+$rowpass_changed = mysqli_fetch_assoc(mysqli_query($db, $SQLpass_changed));
+
+$SQLpass_sent_to = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'pass_sent_to'";
+$rowpass_sent_to = mysqli_fetch_assoc(mysqli_query($db, $SQLpass_sent_to)); 
+
+$SQLto_login_after_pass_2 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'to_login_after_pass_2'";
+$rowto_login_after_pass_2 = mysqli_fetch_assoc(mysqli_query($db, $SQLto_login_after_pass_2)); 
+
+$SQLpasswords_mismatch_2 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'passwords_mismatch_2'";
+$rowpasswords_mismatch_2 = mysqli_fetch_assoc(mysqli_query($db, $SQLpasswords_mismatch_2));
+
+$SQLnew_password = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'new_password'";
+$rownew_password = mysqli_fetch_assoc(mysqli_query($db, $SQLnew_password));
+
+$SQLrepeat_new_password = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'repeat_new_password'";
+$rowrepeat_new_password = mysqli_fetch_assoc(mysqli_query($db, $SQLrepeat_new_password)); 
+
+$SQLremember_new_password = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'remember_new_password'";
+$rowremember_new_password = mysqli_fetch_assoc(mysqli_query($db, $SQLremember_new_password)); 
 	
 }
 
@@ -299,6 +405,39 @@ function SelectTranslationPageMainContent($lang){
 	global $rowselect;
 	global $rownew_case;
 	global $rownew_case_button;
+
+	global $rowteam;
+	global $rowlist_of_persons;
+	global $rowadd_new_person;
+	global $rowperson_name;
+	global $rowphoto_in_profile;
+	global $rowchange_company_name;
+	global $rowname_first_part;
+	global $rowname_second_part;
+	global $rownew_name_text;
+
+	global $rowperson_name;
+	global $rowperson_login;
+	global $rowperson_level;
+    global $rowperson_photo;
+    global $rowperson_status; 
+
+	global $rowgeneral_person_info;
+	global $rowreg_gate;
+	global $rowassess_data;
+
+	global $rowperson_password;
+	global $rowassign_person_login;
+	global $rowassign_person_password;
+	global $rowyour;
+	global $rowlevel_persistent;
+	global $rowchange_assess_data;
+	global $rowto_home;
+	global $rowinfo_on_assess_data;
+	global $rowlevel_10;
+	global $rowlevel_9;
+	global $rowlevel_1;
+	global $rowlevel_0;
 
 /* 
 global $rowxxx;
@@ -441,6 +580,87 @@ $rownew_case = mysqli_fetch_assoc(mysqli_query($db, $SQLnew_case));
 
 $SQLnew_case_button = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'new_case_button'";
 $rownew_case_button = mysqli_fetch_assoc(mysqli_query($db, $SQLnew_case_button));
+
+$SQLteam = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'team'";
+$rowteam = mysqli_fetch_assoc(mysqli_query($db, $SQLteam)); 
+
+$SQLlist_of_persons = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'list_of_persons'";
+$rowlist_of_persons = mysqli_fetch_assoc(mysqli_query($db, $SQLlist_of_persons));
+
+$SQLadd_new_person = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'add_new_person'";
+$rowadd_new_person = mysqli_fetch_assoc(mysqli_query($db, $SQLadd_new_person));
+
+$SQLperson_name = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'person_name'";
+$rowperson_name = mysqli_fetch_assoc(mysqli_query($db, $SQLperson_name));
+
+$SQLphoto_in_profile = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'photo_in_profile'";
+$rowphoto_in_profile = mysqli_fetch_assoc(mysqli_query($db, $SQLphoto_in_profile));
+
+$SQLchange_company_name = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'change_company_name'";
+$rowchange_company_name = mysqli_fetch_assoc(mysqli_query($db, $SQLchange_company_name));
+
+$SQLname_first_part = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'name_first_part'";
+$rowname_first_part = mysqli_fetch_assoc(mysqli_query($db, $SQLname_first_part));
+
+$SQLname_second_part = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'name_second_part'";
+$rowname_second_part = mysqli_fetch_assoc(mysqli_query($db, $SQLname_second_part));
+
+$SQLnew_name_text = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'new_name_text'";
+$rownew_name_text = mysqli_fetch_assoc(mysqli_query($db, $SQLnew_name_text)); 
+
+$SQLperson_login = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'person_login'";
+$rowperson_login = mysqli_fetch_assoc(mysqli_query($db, $SQLperson_login)); 
+$SQLperson_level = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'person_level'";
+$rowperson_level = mysqli_fetch_assoc(mysqli_query($db, $SQLperson_level)); 
+$SQLperson_photo = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'person_photo'";
+$rowperson_photo = mysqli_fetch_assoc(mysqli_query($db, $SQLperson_photo)); 
+$SQLperson_status = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'person_status'";
+$rowperson_status = mysqli_fetch_assoc(mysqli_query($db, $SQLperson_status)); 
+
+$SQLgeneral_person_info = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'general_person_info'";
+$rowgeneral_person_info = mysqli_fetch_assoc(mysqli_query($db, $SQLgeneral_person_info));
+
+$SQLreg_gate = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'reg_gate'";
+$rowreg_gate = mysqli_fetch_assoc(mysqli_query($db, $SQLreg_gate));
+
+$SQLassess_data = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'assess_data'";
+$rowassess_data = mysqli_fetch_assoc(mysqli_query($db, $SQLassess_data));
+ 
+$SQLperson_password = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'person_password'";
+$rowperson_password = mysqli_fetch_assoc(mysqli_query($db, $SQLperson_password));
+
+$SQLassign_person_login = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'assign_person_login'";
+$rowassign_person_login = mysqli_fetch_assoc(mysqli_query($db, $SQLassign_person_login));
+
+$SQLassign_person_password = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'assign_person_password'";
+$rowassign_person_password = mysqli_fetch_assoc(mysqli_query($db, $SQLassign_person_password));
+
+$SQLyour = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'your'";
+$rowyour = mysqli_fetch_assoc(mysqli_query($db, $SQLyour));
+
+$SQLlevel_persistent = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'level_persistent'";
+$rowlevel_persistent = mysqli_fetch_assoc(mysqli_query($db, $SQLlevel_persistent));
+
+$SQLchange_assess_data = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'change_assess_data'";
+$rowchange_assess_data = mysqli_fetch_assoc(mysqli_query($db, $SQLchange_assess_data));
+
+$SQLto_home = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'to_home'";
+$rowto_home = mysqli_fetch_assoc(mysqli_query($db, $SQLto_home));
+
+$SQLinfo_on_assess_data = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'info_on_assess_data'";
+$rowinfo_on_assess_data = mysqli_fetch_assoc(mysqli_query($db, $SQLinfo_on_assess_data));
+
+$SQLlevel_10 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'level_10'";
+$rowlevel_10 = mysqli_fetch_assoc(mysqli_query($db, $SQLlevel_10));
+
+$SQLlevel_9 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'level_9'";
+$rowlevel_9 = mysqli_fetch_assoc(mysqli_query($db, $SQLlevel_9));
+
+$SQLlevel_1 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'level_1'";
+$rowlevel_1 = mysqli_fetch_assoc(mysqli_query($db, $SQLlevel_1));
+
+$SQLlevel_0 = "SELECT phrase_$lang FROM `translation_static_content` WHERE phrase_key = 'level_0'";
+$rowlevel_0 = mysqli_fetch_assoc(mysqli_query($db, $SQLlevel_0));
 
 }
 
