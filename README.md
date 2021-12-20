@@ -11,9 +11,11 @@ My first version included process-oriented approach which I escaped in the secon
 
 This, third, version requiers user's terms only (like calendar). 
 
-I develop my project under the slogan: "do not make me think!". And may be some further clarification of the interface can come up in future.  
+I develop my project under the slogan: 
+>Don't make me think!. 
+And may be some further clarification of the interface can come up in future.  
 
-The only textual input in the Artlipat is the name of the case to work on. Tasks to-do are to be chosen from a pre-determined list. Two these input fields can be found on the main page.   
+The only textual input in Artlipat is the name of the case to work on. Tasks to-do are to be chosen from a pre-determined list. Two these input fields can be found on the main page.   
 
 Terms shall also be indicated manually. But this is not necessary (current date is used by default). Some other information about cases can be inputed as well as on other pages of the serice.
 
@@ -23,13 +25,13 @@ In this version of the service the following tasks were solved:
 
 - using handmade capture to protect bot registration (from which the second version suffered); 
 
-- using checkboxes for completed tasks (visually like Trello or Wunderlist); checking checkbox results in updating db (MySQL) and crossing over the task name, both with jQuery functions; 
+- using checkboxes for completed tasks (visually like Trello or Wunderlist); checking checkbox results in updating db and crossing out the task name, both with [jQuery functions] (https://api.jquery.com/jQuery.post/); 
 
-- since 60 tasks are in the pre-determined list, to facilitate the search of the task in the list I used dinamic search with jQuery function "chosen"; 
+- since 60 tasks are in the pre-determined list, to facilitate the search of the task in the list I used dinamic search with jQuery plugin [Chosen] (https://harvesthq.github.io/chosen/); 
 
-- since input of the case name envisages both new case and already existed case name, I used jQuery Autocomplete function; 
+- since input of the case name envisages both new case and already existed case name, I used [jQuery Autocomplete function] (https://jqueryui.com/autocomplete/#remote); 
 
-- the service is made bilingual; for this purpose, I had to solve two tasks: how to change "static content" (titles on html pages) and how to use appropriate pre-determined list of tasks from db. For "statis content" I used a special "translation" table with column names "title_lung" where lung-part is amended by php. For predetermined lists ....; 
+- the service is made bilingual; for this purpose I had to solve two tasks: how to change "static content" (titles on html pages) and how to use appropriate pre-determined list of e.g.tasks from db. For "statis content" I used a special "translation" table with column names "title_lung" where lung-part is amended by php. For predetermined lists I chosed to use different table with names table_lung and identical column names; at the moment only two languages are supported (en and ru), however theoretically not only langiuages but contries should be separated and lists of different content might have to be used for different countires;
 
 The project is realized with PHP and MySQL; 
 
@@ -37,15 +39,27 @@ I tried to separate business logic and layout and make the structure as close as
 
 As for php, the new feature for me were: 
 
-- using php if condition in html tags to manipulate their style property and checkbox status. 
+- using php if condition in html tags to manipulate their style property and checkbox status: 
+
+```<div class="panel panel-default"
+            <?php if ($row_casedata['not_closed_case']==0):?>
+                style='color:red'
+                <?php endif; ?>>
+``` 
 
 - passing array through method POST (to have a list of checked checkboxes) 
+```
+<input class="active" <?php if ($row2['task_status'] == 0): ?>
+                        checked="checked"<?php endif; ?> 
+                        name="checkbox_done[]"
+                        value="<?php echo $row2['id_task_case']?>" type="checkbox" />
+                        ```
 
 in jQuery the new feature for me were: 
 
-- change; 
+- [Chosen] (https://harvesthq.github.io/chosen/); 
 
-- autocomplete (which was a real headache); 
+- [Autocomplete] (https://jqueryui.com/autocomplete/#remote)(which was a real headache); 
 
 My plan is to add "reports" to the service. Firstly, the hours and money spent to each task. But the service must still be simple.
 
