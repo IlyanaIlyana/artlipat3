@@ -14,7 +14,7 @@ require_once "art_control/functions_selecting_data.php";
 require_once "art_view/functions_showing_data.php"; 
 
 $id_case = $_GET['sent_case_id']; // id дела
-$not_closed = $_GET['not_closed']; // id дела
+$not_closed = $_GET['not_closed']; // 
 $id_account = $_SESSION['useraccountid']; //id аккаунта
 
 StartDB();
