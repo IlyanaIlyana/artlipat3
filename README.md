@@ -70,7 +70,7 @@ If I finish CS50  WebDevelopement, the next step may be to rewrite the service o
 The task which is not still solved is SQL injections. Even though user-input is very limited in the service, it has not been checked in full for this attack's resistance. 
 
 For layout the following template was used:
-### Theme Name: NiceAdmin
-### Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-### Theme Author: BootstrapMade
-### Theme Author URL: https://bootstrapmade.com 
+###### Theme Name: NiceAdmin
+###### Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+###### Theme Author: BootstrapMade
+###### Theme Author URL: https://bootstrapmade.com 
