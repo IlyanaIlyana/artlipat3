@@ -56,6 +56,21 @@ As for php, the new feature for me were:
     name="checkbox_done[]"
     value="<?php echo $row2['id_task_case']?>" type="checkbox" />
 ```
+```
+$("input.active").click(function() {
+		// store the values from the checkbox box, then send via ajax below
+		var check_active = $(this).is(':checked') ? 0 : 1;
+		var check_id = $(this).attr('value');			
+			$.ajax({
+				type: "POST",
+				url: "../art_ajax/check_box_on.php",
+				data: {id: check_id, active: check_active},
+				}
+			});
+		return true;
+	});
+}
+```
 
 in jQuery the new feature for me were: 
 
