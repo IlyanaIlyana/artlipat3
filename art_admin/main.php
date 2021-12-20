@@ -17,7 +17,7 @@ function ShowUsers()
     $lang= 'en';
     SelectTranslationPageMainContent($lang); //kept in art_control/functions_selecting_language.php
 
-	$SQL = "SELECT * FROM employees JOIN employee_status es ON es.id_status = employees.status_id 
+	$SQL = "SELECT * FROM employees JOIN employee_status_$lang es ON es.id_status = employees.status_id 
     WHERE `account_id`=".$_SESSION['useraccountid'];
     //print "вот так выглядит запрос: <br>".$SQL."<br>";
 	

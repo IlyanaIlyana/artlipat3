@@ -3,7 +3,8 @@
 $result_cases_to_work;
 function SelectAllCasesToWorkOn($x) //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
 {
-	global $db;
+	$lang= 'en';
+    global $db;
     global $result_cases_to_work;
     //print "SESSION['useraccountid']=".$_SESSION['useraccountid'];
     $account_id = $_SESSION['useraccountid'];
@@ -12,8 +13,8 @@ function SelectAllCasesToWorkOn($x) //вызывается из function ShowFir
     $SQL = "SELECT * FROM task_cases tc 
         JOIN cases c2 ON c2.id_case = tc.case_id 
         JOIN employees e2 ON e2.id_employee = tc.task_responsible_id 
-        JOIN tasks t2 ON t2.id_task = tc.task_id 
-        LEFT JOIN whats w2 ON w2.id_what = tc.what_id 
+        JOIN tasks_$lang t2 ON t2.id_task = tc.task_id 
+        LEFT JOIN whats_$lang w2 ON w2.id_what = tc.what_id 
         WHERE tc.still_show_on_index = 1 AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 AND e2.account_id = ".$account_id." AND tc.task_start_term <= CURRENT_DATE()
         ORDER BY tc.task_end_term";
     //print "<br>".$SQL."<br>";
@@ -22,8 +23,8 @@ function SelectAllCasesToWorkOn($x) //вызывается из function ShowFir
     $SQL = "SELECT * FROM task_cases tc 
         JOIN cases c2 ON c2.id_case = tc.case_id 
         JOIN employees e2 ON e2.id_employee = tc.task_responsible_id 
-        JOIN tasks t2 ON t2.id_task = tc.task_id 
-        LEFT JOIN whats w2 ON w2.id_what = tc.what_id    
+        JOIN tasks_$lang t2 ON t2.id_task = tc.task_id 
+        LEFT JOIN whats_$lang w2 ON w2.id_what = tc.what_id    
         WHERE tc.still_show_on_index = 1 AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 AND e2.account_id = ".$account_id." AND tc.task_start_term > CURRENT_DATE()
         ORDER BY tc.task_end_term";
     //print "<br>".$SQL."<br>";
@@ -37,7 +38,9 @@ function SelectAllCasesToWorkOn($x) //вызывается из function ShowFir
 
 function SelectCasesToWorkOnForPerson($person_id, $x) //вызывается из function ShowTabsContent(), расположенной здесь же
 {
-	global $db;
+	$lang= 'en';
+
+    global $db;
     global $result_cases_to_work_person;
     $account_id = $_SESSION['useraccountid'];
     
@@ -45,8 +48,8 @@ function SelectCasesToWorkOnForPerson($person_id, $x) //вызывается и�
         $SQL = "SELECT * FROM task_cases tc 
             JOIN cases c2 ON c2.id_case = tc.case_id 
             JOIN employees e2 ON e2.id_employee = tc.task_responsible_id 
-            JOIN tasks t2 ON t2.id_task = tc.task_id 
-            LEFT JOIN whats w2 ON w2.id_what = tc.what_id 
+            JOIN tasks_$lang t2 ON t2.id_task = tc.task_id 
+            LEFT JOIN whats_$lang w2 ON w2.id_what = tc.what_id 
             WHERE tc.still_show_on_index = 1 AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 AND e2.account_id = ".$account_id." AND 
                 e2.id_employee =".$person_id." AND 
                 tc.task_start_term <= CURRENT_DATE()
@@ -57,8 +60,8 @@ function SelectCasesToWorkOnForPerson($person_id, $x) //вызывается и�
         $SQL = "SELECT * FROM task_cases tc 
             JOIN cases c2 ON c2.id_case = tc.case_id 
             JOIN employees e2 ON e2.id_employee = tc.task_responsible_id 
-            JOIN tasks t2 ON t2.id_task = tc.task_id 
-            LEFT JOIN whats w2 ON w2.id_what = tc.what_id
+            JOIN tasks_$lang t2 ON t2.id_task = tc.task_id 
+            LEFT JOIN whats_$lang w2 ON w2.id_what = tc.what_id
             WHERE tc.still_show_on_index = 1 AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 AND e2.account_id = ".$account_id." AND 
                 e2.id_employee =".$person_id." AND 
                 tc.task_start_term > CURRENT_DATE()
@@ -99,31 +102,32 @@ $result_tasks;
 $result_whats;  
 function PrepareIndependentListsForChoice() // вызывается в файле page_for_new_case.php  и page_for_case_card и page_for_case_task
 {
+    $lang= 'en';
     global $db;
     global $result_ipsubjects; 
     global $result_jurisdictions; 
     global $result_tasks;
     global $result_whats;
     
-    $SQL = "SELECT * FROM  ipsubjects";
+    $SQL = "SELECT * FROM  ipsubjects_$lang";
     if (!$result_ipsubjects = mysqli_query($db, $SQL)) 
     {
         printf("Ошибка в запросе: %s\n", mysqli_error($db));
     }
 
-    $SQL = "SELECT * FROM  jurisdictions";
+    $SQL = "SELECT * FROM  jurisdictions_$lang";
     if (!$result_jurisdictions = mysqli_query($db, $SQL)) 
     {
         printf("Ошибка в запросе: %s\n", mysqli_error($db));
     }  
     
-    $SQL = "SELECT * FROM  tasks";
+    $SQL = "SELECT * FROM  tasks_$lang";
     if (!$result_tasks = mysqli_query($db, $SQL)) 
     {
         printf("Ошибка в запросе: %s\n", mysqli_error($db));
     }
 
-    $SQL = "SELECT * FROM  whats WHERE id_what !=1";
+    $SQL = "SELECT * FROM  whats_$lang WHERE id_what !=1";
     if (!$result_whats = mysqli_query($db, $SQL)) 
     {
         printf("Ошибка в запросе: %s\n", mysqli_error($db));
@@ -132,15 +136,16 @@ function PrepareIndependentListsForChoice() // вызывается в файл�
 
 function SelectDataOnCaseId($case_id) // вызывается в файле  page_for_case_card
 {
+    $lang= 'en';
     global $db;    
     global $row_casedata;   
     
     $SQL = 
         "SELECT *
         FROM cases c2 
-        LEFT JOIN ipsubjects is2 
+        LEFT JOIN ipsubjects_$lang is2 
         ON c2.ipsubject_id = is2.id_ipsubject 
-        LEFT JOIN jurisdictions j2 
+        LEFT JOIN jurisdictions_$lang j2 
         ON c2.jurisdiction_id = j2.id_jurisdiction 
         JOIN employees e2 
         ON e2.id_employee = c2.registrant_id 
@@ -236,15 +241,16 @@ function SelectEmployeesOnAccountId() // вызывается в файле page
 
 function SelectAllTaskOnCaseId($case_id) // вызывается в файле  page_for_case_card
 {
+    $lang= 'en';
     global $db;    
     global $result_casetask; 
 
     $SQL = 
         "SELECT * , DATE_FORMAT(task_start_term, '%d.%m.%Y') as task_start_term_formatted
         FROM task_cases atc 
-        JOIN tasks t2 ON t2.id_task = atc.task_id 
+        JOIN tasks_$lang t2 ON t2.id_task = atc.task_id 
         JOIN employees e2 ON e2.id_employee = atc.task_responsible_id 
-        LEFT JOIN whats w2 ON w2.id_what = atc.what_id
+        LEFT JOIN whats_$lang w2 ON w2.id_what = atc.what_id
         WHERE atc.case_id = $case_id AND atc.not_deleted_task=1";
 
         //print $SQL;
@@ -260,14 +266,15 @@ function SelectAllTaskOnCaseId($case_id) // вызывается в файле  
 
 function SelectThisTaskOnCase($task_case_id) // вызывается в файле  page_for_case_task
 {
+    $lang= 'en';
     global $db;    
     global $row_casetask; 
 
     $SQL = 
         "SELECT *
         FROM task_cases atc 
-        JOIN tasks t2 ON t2.id_task = atc.task_id 
-        LEFT JOIN whats w2 ON w2.id_what = atc.what_id
+        JOIN tasks_$lang t2 ON t2.id_task = atc.task_id 
+        LEFT JOIN whats_$lang w2 ON w2.id_what = atc.what_id
         JOIN employees e2 ON e2.id_employee = atc.task_responsible_id 
         JOIN employees e3 ON e3.id_employee = atc.recorder_id 
         WHERE atc.id_task_case =$task_case_id";
@@ -285,7 +292,8 @@ function SelectThisTaskOnCase($task_case_id) // вызывается в файл
 
 function NoTasksDoneNotHidden() //вызывается из 
 {
-	global $db;
+	$lang= 'en';
+    global $db;
 /*     global $show_hide_button; */
     $account_id = $_SESSION['useraccountid'];
 
@@ -293,8 +301,8 @@ function NoTasksDoneNotHidden() //вызывается из
         "SELECT * FROM task_cases tc 
             JOIN cases c2 ON c2.id_case = tc.case_id 
             JOIN employees e2 ON e2.id_employee = tc.task_responsible_id 
-            JOIN tasks t2 ON t2.id_task = tc.task_id 
-            LEFT JOIN whats w2 ON w2.id_what = tc.what_id 
+            JOIN tasks_$lang t2 ON t2.id_task = tc.task_id 
+            LEFT JOIN whats_$lang w2 ON w2.id_what = tc.what_id 
             WHERE tc.still_show_on_index = 1 AND tc.task_status = 0 
                 AND c2.not_closed_case =1 AND tc.not_deleted_task = 1 
                 AND e2.account_id = $account_id"; 
