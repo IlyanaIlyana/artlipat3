@@ -61,7 +61,7 @@ in jQuery the new feature for me were:
 
 - [Chosen](https://harvesthq.github.io/chosen/); 
 
-- [Autocomplete](https://jqueryui.com/autocomplete/#remote)(which was a real headache); 
+- [Autocomplete](https://jqueryui.com/autocomplete/#remote) (which was a real headache); 
 
 My plan is to add "reports" to the service. Firstly, the hours and money spent to each task. But the service must still be simple.
 
@@ -69,8 +69,8 @@ If I finish CS50  WebDevelopement, the next step may be to rewrite the service o
 
 The task which is not still solved is SQL injections. Even though user-input is very limited in the service, it has not been checked in full for this attack's resistance. 
 
-for layout the following template was used:
-Theme Name: NiceAdmin
-Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-Theme Author: BootstrapMade
-Theme Author URL: https://bootstrapmade.com 
+For layout the following template was used:
+### Theme Name: NiceAdmin
+### Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+### Theme Author: BootstrapMade
+### Theme Author URL: https://bootstrapmade.com 
