@@ -113,7 +113,7 @@ EndDB();
                 <div class="panel-actions">
                   <!-- <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
                   <a href="#" class="wclose"><i class="fa fa-times"></i></a> -->
-                  <a style="color: #007aff" href="page_for_case_details.php?sent_case_id=<?php echo $id_case?> & not_closed=<?php echo $row_casedata['not_closed_case']?>"><i class="fa fa-edit info" ></i></a>
+                  <a style="color: #007aff" href="page_for_case_edit.php?sent_case_id=<?php echo $id_case?> & not_closed=<?php echo $row_casedata['not_closed_case']?>"><i class="fa fa-edit info" ></i></a>
                 </div>
               </div>
               <div class="panel-body"> 
