@@ -42,34 +42,33 @@ As for php, the new feature for me were:
 
 - using php if condition in html tags to manipulate their style property and checkbox status: 
 
-```<div class="panel panel-default"
+``` <div class="panel panel-default"
         <?php if ($row_casedata['not_closed_case']==0):?>
             style='color:red'
          <?php endif; ?>
-     >
+    >
 ``` 
 
 - passing array through method POST (to have a list of checked checkboxes) 
 ```
-<input class="active" 
-    <?php if ($row2['task_status'] == 0): ?>checked="checked"<?php endif; ?> 
-    name="checkbox_done[]"
-    value="<?php echo $row2['id_task_case']?>" type="checkbox" />
-```
-```
-$("input.active").click(function() {
-		// store the values from the checkbox box, then send via ajax below
-		var check_active = $(this).is(':checked') ? 0 : 1;
-		var check_id = $(this).attr('value');			
-			$.ajax({
-				type: "POST",
-				url: "../art_ajax/check_box_on.php",
-				data: {id: check_id, active: check_active},
-				}
-			});
-		return true;
-	});
-}
+<form action="done.php" method="post">
+	while($row = mysqli_fetch_assoc($result)){         
+        ?>
+        <tr>
+			<td>
+				<div class="checkboxes">
+					<input class="active" 
+					<?php if ($row['status'] == 0): ?>checked="checked"<?php endif; ?> 
+					name="checkbox_done[]"
+					value="<?php echo $row['id']?>" 
+					type="checkbox" />
+				</div>
+			</td>
+		</tr>
+	}
+</form>
+
+//Array ( [checkbox_done] => Array ([0] => 61 [1] => 62 [2] => 63 [3] => 57 [4] => 58 ))
 ```
 
 in jQuery the new feature for me were: 
