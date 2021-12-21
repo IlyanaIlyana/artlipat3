@@ -39,9 +39,9 @@ require_once "start_mysql.php";
 	{
 		$SQL01 = "INSERT INTO cases
 		(ipsubject_id,  jurisdiction_id,  registration_date, registrant_id, 
-		our_case_ref) 
+		our_case_ref, client_case_ref, pto_case_ref) 
 		VALUES 	('6',  '8', NOW(), '$id_empl',   
-		  '$casenick')";		                  
+		  '$casenick', '', '')";		                  
 		//print "нет такого имени, <br>SQL01".$SQL01."<br>";
 
 		if (!mysqli_query($db, $SQL01)) 

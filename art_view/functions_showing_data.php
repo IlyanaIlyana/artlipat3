@@ -119,12 +119,19 @@ function ShowTabs() //вызывается из function ShowFirstPage(), рас
 function ShowTabsContent() //вызывается из function ShowFirstPage(), расположенной в function_for_page_view_on_index.php
 {    
     global $result_emplos;
+
+    $lang= $_SESSION['language'];	
+    $lang= 'en';
+    global $rowactulal_tasks;    
+    global $rowplanned;
+    SelectTranslationPageMainContent($lang);
+
     SelectEmployeesOnAccountId();
     while($row = mysqli_fetch_assoc($result_emplos))
     { 
         ?>            
         <div id="<?php echo $row['id_employee']?>" class="tab-pane">
-        <h3>Актуальные задачи</h3>
+        <h3><?php echo $rowactulal_tasks['phrase_'.$lang]?></h3>
             <div class="table-responsive">    
             <table class="table">                
                 <tbody>
@@ -132,7 +139,7 @@ function ShowTabsContent() //вызывается из function ShowFirstPage(),
                 </tbody>
             </table>
             </div> 
-        <h3>Запланированные задачи</h3>
+        <h3><?php echo $rowplanned['phrase_'.$lang]?></h3>
             <div class="table-responsive"> 
             <table class="table">                
                 <tbody>

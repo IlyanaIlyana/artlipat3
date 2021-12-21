@@ -7,6 +7,7 @@ function PageHeader() {
   global $rowlog_out;
  
   $lang= $_SESSION['language'];	
+  $lang= 'en';	
  
 /*   StartDB(); */	
   SelectTranslationPagesFrame($lang); //kept in art_control/functions_selecting_language.php
