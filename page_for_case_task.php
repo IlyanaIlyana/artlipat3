@@ -140,13 +140,13 @@ EndDB();
                       <div class="form-group">
                         <label class="control-label col-lg-3" for="tags"><?php echo $rowstart['phrase_'.$lang]?></label>
                         <div class="col-lg-9">
-                          <input type="date" class="form-control" name="task_start_date"  value="<?php echo $row_casetask['task_start_term']?>">
+                          <input id="date1" type="date" class="form-control" name="start_term"  value="<?php echo $row_casetask['task_start_term']?>">
                         </div>
                       </div>
                         <div class="form-group">
                           <label class="control-label col-lg-3" for="tags"><?php echo $rowend['phrase_'.$lang]?></label>
                           <div class="col-lg-9">
-                            <input type="date" class="form-control" name="task_end_date"  value="<?php echo $row_casetask['task_end_term']?>">
+                            <input type="date" class="form-control" name="end_term"  value="<?php echo $row_casetask['task_end_term']?>">
                           </div>
                         </div>
                         

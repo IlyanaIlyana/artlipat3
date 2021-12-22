@@ -5,8 +5,8 @@ require_once "start_mysql.php";
     /* $id_account = $_SESSION['useraccountid']; */
     $id_empl = $_SESSION['userid'];
     $responsible_id = htmlspecialchars($_POST['responsible_id']);	
-    $task_start_date = htmlspecialchars($_POST['task_start_date']);    
-    $task_end_date = htmlspecialchars($_POST['task_end_date']);  
+    $task_start_date = htmlspecialchars($_POST['start_term']);    
+    $task_end_date = htmlspecialchars($_POST['end_term']);  
     $case_id = $_POST['case_id'];
     $task_id = $_POST['task_id'];
     $task_case_id = $_POST['task_case_id'];
