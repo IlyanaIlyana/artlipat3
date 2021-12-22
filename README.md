@@ -32,7 +32,7 @@ In this version of the service the following tasks were solved:
 
 - since input of the case name envisages both new case and already existed case name, I used [jQuery Autocomplete function](https://jqueryui.com/autocomplete/#remote); 
 
-- the service is made bilingual; for this purpose I had to solve two tasks: how to change "static content" (titles on html pages) and how to use appropriate pre-determined list of e.g.tasks from db. For "statis content" I used a special "translation" table with column names "title_lung" where lung-part is amended by php. For predetermined lists I chosed to use different table with names table_lung and identical column names; at the moment only two languages are supported (en and ru), however theoretically not only langiuages but contries should be separated and lists of different content might have to be used for different countires;
+- the service is made bilingual; for this purpose I had to solve two tasks: how to change "static content" (titles on html pages) and how to use appropriate pre-determined list of e.g.tasks from database. For "statis content" I used a special "translation" table with column names "title_lung" where lung-part is amended by php. For predetermined lists I have chosen to use different tables with names table_lung and identical column names; at the moment only two languages are supported (en and ru), however theoretically not only langiuages but contries should be separated and lists of different content might have to be used for different countires; with my structure of db if new language/country is added, one field should be added in "static content", and five tables specific for this language/country (in one of them id column should be treated carefully for correct work of js file).
 
 The project is realized with PHP and MySQL; 
 
@@ -42,36 +42,37 @@ As for php, the new feature for me were:
 
 - using php if condition in html tags to manipulate their style property and checkbox status: 
 
-``` <div class="panel panel-default"
-        <?php if ($row_casedata['not_closed_case']==0):?>
-            style='color:red'
-         <?php endif; ?>
-    >
+``` 
+<div class="panel panel-default"
+ <?php if ($row_casedata['not_closed_case']==0):?>
+  style='color:red'
+ <?php endif; ?>
+>
 ``` 
 
 - passing array through method POST (to have a list of checked checkboxes) 
 ```
 <form action="done.php" method="post">
-	while($row = mysqli_fetch_assoc($result)){         
-        ?>
-        <tr>
-			<td>
-				<div class="checkboxes">
-					<input class="active" 
-					<?php if ($row['status'] == 0): ?>checked="checked"<?php endif; ?> 
-					name="checkbox_done[]"
-					value="<?php echo $row['id']?>" 
-					type="checkbox" />
-				</div>
-			</td>
-		</tr>
-	}
+ while($row = mysqli_fetch_assoc($result)){         
+ ?>
+ <tr>
+  <td>
+   <div class="checkboxes">
+	<input class="active" 
+	<?php if ($row['status'] == 0): ?>checked="checked"<?php endif; ?> 
+	name="checkbox_done[]"
+	value="<?php echo $row['id']?>" 
+	type="checkbox" />
+   </div>
+  </td>
+ </tr>
+}
 </form>
 
 //Array ( [checkbox_done] => Array ([0] => 61 [1] => 62 [2] => 63 [3] => 57 [4] => 58 ))
 ```
 
-in jQuery the new feature for me were: 
+in jQuery the new features for me were: 
 
 - [Chosen](https://harvesthq.github.io/chosen/); 
 
@@ -79,7 +80,7 @@ in jQuery the new feature for me were:
 
 My plan is to add "reports" to the service. Firstly, the hours and money spent to each task. But the service must still be simple.
 
-If I finish CS50  WebDevelopement, the next step may be to rewrite the service on python or some other kind of object-oriented language with mvc pattern. 
+If I finish CS50 WebDevelopement, the next step may be to rewrite the service on Python or some other kind of object-oriented language with mvc pattern. 
 
 The task which is not still solved is SQL injections. Even though user-input is very limited in the service, it has not been checked in full for this attack's resistance. 
 
