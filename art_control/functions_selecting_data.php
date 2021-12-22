@@ -121,7 +121,7 @@ function PrepareIndependentListsForChoice() // вызывается в файл�
         printf("Ошибка в запросе: %s\n", mysqli_error($db));
     }  
     
-    $SQL = "SELECT * FROM  tasks_$lang";
+    $SQL = "SELECT * FROM  tasks_$lang WHERE valid = 1";
     if (!$result_tasks = mysqli_query($db, $SQL)) 
     {
         printf("Ошибка в запросе: %s\n", mysqli_error($db));
