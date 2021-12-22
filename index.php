@@ -1,4 +1,4 @@
-<?php session_start(); $title = "Управление делами"; 
+<?php session_start(); $title = "Artlipat"; 
 /* require_once "functions_for_page_view_login_on_index.php";  */
 require_once "functions_control_view_login_on_index.php"; //= functions_for_page_view_login_on_index.php
 /* require_once "function_for_page_view_on_index.php"; */ 
