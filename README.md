@@ -1,6 +1,6 @@
 # ARTLIPAT
 #### Video Demo:  <https://youtu.be/tyoERHKC0PA>
-#### URL: https://artlipat.online/lend.html
+#### URL: https://artlipat.ru/online/lend.html
 #### Description:
 
 This project is my Final Project for CS50 (2021) and is the third version of the implementation of my idea "low scale software for IP lawyers" because originally, I am Russian/Eurasian Patent Attorney.   
